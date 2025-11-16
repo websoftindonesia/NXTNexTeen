@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXT Fashion - Desain Kustom & Gaya</title>
+    
+    <style>
+        /* CSS DILAPISI DI SINI */
+        
+        :root {
+            --dark-green: #003d29;
+            --light-accent: #e0f2f1;
+            --gold-accent: #ffd700;
+            --text-color: #c8e6c9;
+            --darker-bg: #00251a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-green);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header dan Navbar */
+        header {
+            background-color: var(--darker-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: var(--gold-accent);
+            font-size: 2em;
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--light-accent);
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--dark-green);
+            background-color: var(--light-accent);
+        }
+
+        /* Bagian Konten Utama */
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            padding: 40px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        h2, h3, h4 {
+            color: var(--light-accent);
+            margin-bottom: 1rem;
+        }
+        
+        section:target::before {
+            content: "";
+            display: block;
+            height: 100px; 
+            margin: -100px 0 0;
+        }
+
+        /* Hero Section (HOME) */
+        .hero-section {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://picsum.photos/1200/800/?random=1') no-repeat center center/cover;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        .hero-section h2 {
+            font-size: 3.5em;
+            color: var(--gold-accent);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            color: var(--light-accent);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold-accent);
+            color: var(--dark-green);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.1em;
+        }
+
+        .cta-button:hover {
+            background-color: #e6c200;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* ABOUT Section Styling */
+        .about-grid h4 {
+            color: var(--gold-accent);
+            border-bottom: 2px solid var(--gold-accent);
+            padding-bottom: 5px;
+        }
+        
+        /* DESIGN SERVICES Section Styling */
+        .service-card, .form-section {
+            background-color: var(--darker-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .service-card:hover {
+            background-color: rgba(0, 37, 26, 0.8);
+        }
+        
+        .service-card h4 {
+            margin-top: 0;
+            color: var(--light-accent);
+        }
+
+        /* FORM STYLING */
+        .design-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--light-accent);
+        }
+        
+        .design-form input[type="text"],
+        .design-form input[type="email"],
+        .design-form input[type="file"],
+        .design-form textarea,
+        .design-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--text-color);
+            border-radius: 4px;
+            background-color: var(--dark-green);
+            color: var(--light-accent);
+            font-size: 1em;
+        }
+        
+        .design-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .design-form input[type="file"] {
+            border: none;
+            padding: 5px 0;
+        }
+
+        .design-form button {
+            background-color: var(--gold-accent);
+            color: var(--dark-green);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .design-form button:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+        }
+
+        /* NEWS Section Styling */
+        .news-article {
+            background-color: var(--darker-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .news-article:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-article small {
+            display: block;
+            color: var(--gold-accent);
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Media Queries untuk Responsif */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                padding-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 5px 10px;
+            }
+            .hero-section h2 {
+                font-size: 2.5em;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>NXT</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Design Services</a></li>
+                    <li><a href="#news">News</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="home" class="hero-section">
+            <h2>Elegansi Kontemporer dalam Setiap Benang</h2>
+            <p>NXT mendefinisikan ulang fashion dengan desain berani, keberlanjutan, dan kualitas tak tertandingi untuk masa depan gaya Anda.</p>
+            <a href="#services" class="cta-button">Jelajahi Koleksi Terbaru</a>
+        </section>
+
+        <section id="about">
+            <h3>Tentang NXT Fashion: Filosofi, Visi, dan Tim Kreatif 💡</h3>
+            <p>Didirikan pada tahun 2025 di Jakarta, **NXT Fashion** lahir dari kebutuhan akan mode yang lebih bermakna. Kami percaya bahwa setiap pakaian harus menggabungkan estetika tinggi, kenyamanan, dan tanggung jawab sosial. Kami bukan hanya merek; kami adalah gerakan menuju industri *fashion* yang lebih etis dan inovatif.</p>
+            
+            <div class="grid-container about-grid">
+                <div>
+                    <h4>🌱 Keberlanjutan Inti & Etika Produksi</h4>
+                    <p>Kami memprioritaskan penggunaan bahan daur ulang, organik (seperti katun bersertifikat GOTS dan rami), dan bersumber secara etis. Rantai pasokan kami 100% transparan, memastikan setiap pekerja dibayar dengan adil (sesuai standar *Fair Trade*) dan bekerja dalam kondisi yang aman. Tujuan kami adalah mencapai status **carbon neutral** dalam lima tahun ke depan.</p>
+                </div>
+                <div>
+                    <h4>✨ Estetika Minimalis Berani</h4>
+                    <p>Desain kami menonjolkan potongan (*cutting*) yang tajam, siluet yang bersih, dan palet warna yang terinspirasi dari alam, termasuk palet **dark green** khas kami yang melambangkan pertumbuhan dan kemewahan alami. Kami menciptakan pakaian *wearable art* yang abadi, menolak tren *fast fashion*.</p>
+                </div>
+                <div>
+                    <h4>🧑‍🎨 Tim Kreatif & Inovasi Material</h4>
+                    <p>Dipimpin oleh **Alisa Chandra**, Direktur Kreatif visioner, tim R&D kami terus bereksperimen dengan tekstil pintar dan serat bioteknologi (misalnya, serat yang dibuat dari alga) untuk mengurangi jejak karbon. Kami berinvestasi dalam teknologi 3D *printing* untuk meminimalkan sisa kain (*fabric waste*).</p>
+                </div>
+                <div>
+                    <h4>🤝 Keterlibatan Komunitas</h4>
+                    <p>NXT bangga bermitra dengan pengrajin lokal di Indonesia untuk melestarikan teknik tenun dan batik tradisional, mengintegrasikannya ke dalam desain modern kami. Ini memastikan bahwa warisan budaya tetap hidup dan berkelanjutan secara ekonomi.</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr/>
+
+        <section id="services">
+            <h3>Layanan Desain Kami: Ciptakan Karya Anda Bersama NXT ✂️</h3>
+            <p>Kami menawarkan pengalaman *fashion* yang menyeluruh, mulai dari pakaian siap pakai hingga kreasi *couture* pribadi yang unik. Layanan kami dirancang untuk merealisasikan visi gaya Anda dengan kualitas tertinggi.</p>
+            
+            <div class="grid-container">
+                <div class="service-card">
+                    <h4>1. Ready-to-Wear (RTW) & Koleksi Kapsul</h4>
+                    <p>Koleksi musiman yang dirancang untuk gaya hidup urban yang dinamis. Setiap koleksi RTW juga menyertakan koleksi kapsul terbatas (*limited capsule collection*) hasil kolaborasi dengan seniman kontemporer.</p>
+                    <ul>
+                        <li><small>Lookbook Digital Musim Terbaru tersedia.</small></li>
+                        <li><small>Pemesanan online dan di *flagship store*.</small></li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <h4>2. Bespoke Tailoring (Jahitan Kustom)</h4>
+                    <p>Layanan penjahitan pribadi untuk acara-acara penting (*wedding, gala, corporate*). Kami memberikan konsultasi mendalam mengenai siluet, bahan (wol, sutra, linen premium), dan detail interior pakaian untuk hasil yang benar-benar *one-of-a-kind*.</p>
+                    <p><small>Proses: Konsultasi Awal > Sketsa Desain > Pemilihan Material > *Multiple Fitting Sessions* > Penyelesaian.</small></p>
+                </div>
+
+                <div class="service-card">
+                    <h4>3. Konsultasi Gaya & Restorasi Pakaian</h4>
+                    <p>Layanan konsultasi *fashion* profesional untuk menyusun lemari pakaian kapsul, serta layanan restorasi dan perbaikan pakaian premium yang sudah ada untuk memperpanjang usia pakainya, sejalan dengan filosofi keberlanjutan kami.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Formulir Pengajuan Desain Kustom Anda</h3>
+            <div class="form-section">
+                <p>Miliki pakaian impian Anda yang dibuat khusus oleh tim desainer NXT. Mohon isi detail berikut dan lampirkan referensi visual (sketsa, foto) Anda.</p>
+                
+                <form class="design-form" action="/submit_design" method="POST" enctype="multipart/form-data">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" required>
+
+                    <label for="email">Email Kontak:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="jenis_pakaian">Jenis Pakaian yang Diinginkan:</label>
+                    <select id="jenis_pakaian" name="jenis_pakaian" required>
+                        <option value="">-- Pilih Jenis --</option>
+                        <option value="Jas/Tuxedo">Jas/Tuxedo</option>
+                        <option value="Gaun Malam">Gaun Malam</option>
+                        <option value="Pakaian Kasual Kustom">Pakaian Kasual Kustom</option>
+                        <option value="Lainnya">Lainnya (Jelaskan di Keterangan)</option>
+                    </select>
+
+                    <label for="keterangan">Deskripsi Konsep Desain (Bahan, Warna, Acara, dll.):</label>
+                    <textarea id="keterangan" name="keterangan" required></textarea>
+
+                    <label for="file_desain">Lampirkan Sketsa/Referensi Visual (Maks. 5MB):</label>
+                    <input type="file" id="file_desain" name="file_desain" accept=".jpg, .jpeg, .png, .pdf">
+
+                    <button type="submit">Kirim Pengajuan Desain</button>
+                </form>
+            </div>
+        </section>
+
+        <hr/>
+
+        <section id="news">
+            <h3>Berita Terbaru & Sorotan Media 📰</h3>
+            <p>Ikuti perkembangan terbaru NXT, mulai dari peluncuran koleksi, liputan media internasional, hingga inisiatif keberlanjutan dan kolaborasi kami.</p>
+            
+            <div class="grid-container">
+                
+                <article class="news-article">
+                    <h4>🏆 NXT Memenangkan "Sustainable Fashion Award 2025"</h4>
+                    <p>NXT meraih penghargaan bergengsi di Milan atas penggunaan inovatif serat nanas (Piñatex) sebagai pengganti kulit dalam lini aksesoris kami. Kami membuktikan bahwa kemewahan bisa sejalan dengan keberlanjutan.</p>
+                    <small>Published: 15 November 2025 | Kategori: Penghargaan & Etika</small>
+                </article>
+                
+                <article class="news-article">
+                    <h4>🗓️ Eksklusif: Preview Koleksi Resort 2026 di Paris Fashion Week</h4>
+                    <p>Direktur Kreatif NXT, Ibu Alisa Chandra, akan mempresentasikan koleksi *Resort* terbarunya, menampilkan tenun ikat Sumba yang dimodifikasi secara modern. Acara akan disiarkan langsung melalui kanal YouTube kami.</p>
+                    <small>Published: 1 November 2025 | Kategori: Event & Fashion Show</small>
+                </article>
+                
+                <article class="news-article">
+                    <h4>🤝 Kolaborasi NXT dengan Seniman Patung Eko Nugroho</h4>
+                    <p>NXT mengumumkan kolaborasi unik dengan seniman kontemporer Eko Nugroho untuk koleksi kapsul terbatas "Interaksi". Koleksi ini akan menampilkan motif-motif khas Eko pada jaket dan *outerwear* NXT.</p>
+                    <small>Published: 18 Oktober 2025 | Kategori: Kolaborasi Seni</small>
+                </article>
+                
+                <article class="news-article">
+                    <h4>🌐 NXT Buka Flagship Store Global Pertama di London</h4>
+                    <p>Dalam ekspansi internasional, toko NXT yang baru dibuka di Mayfair, London, dirancang dengan material daur ulang dan menampilkan instalasi seni dari desainer Indonesia.</p>
+                    <small>Published: 1 Oktober 2025 | Kategori: Ekspansi Bisnis</small>
+                </article>
+
+            </div>
+        </section>
+        
+        <hr/>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 NXT Fashion. Semua Hak Cipta Dilindungi. | Inovasi dalam Gaya dan Etika.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
