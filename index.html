@@ -1,22 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nexteen.co.id</title>
-    
+    <title>NexTeen - Fashion & Lifestyle Terdepan</title>
     <style>
-        /* CSS DILAPISI DI SINI */
-        
-        :root {
-            --dark-green: #003d29;
-            --light-accent: #e0f2f1;
-            --gold-accent: #ffd700;
-            --text-color: #c8e6c9;
-            --darker-bg: #00251a;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -24,422 +12,1248 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-green);
-            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
-            scroll-behavior: smooth;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .container {
-            width: 85%;
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: #4ade80;
+            margin-bottom: 2rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(74, 222, 128, 0.3);
+            border-top: 4px solid #4ade80;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(13, 40, 24, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(13, 40, 24, 0.98);
+            min-width: 300px;
+            border-radius: 10px;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown h4 {
+            color: #4ade80;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .dropdown p {
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .dropdown-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .dropdown-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-links a:hover {
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            color: #0d2818;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.8), rgba(13, 40, 24, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%234ade80" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(74, 222, 128, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.8)); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            color: #0d2818;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #4ade80;
+            padding: 1rem 2rem;
+            border: 2px solid #4ade80;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+        }
+
+        /* Fashion Gallery */
+        .fashion-gallery {
+            padding: 4rem 2rem;
+            background: rgba(26, 77, 58, 0.3);
+        }
+
+        .gallery-container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Header dan Navbar */
-        header {
-            background-color: var(--darker-bg);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            color: var(--gold-accent);
-            font-size: 2em;
-            letter-spacing: 3px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--light-accent);
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            transition: color 0.3s, background-color 0.3s;
-            border-radius: 4px;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--dark-green);
-            background-color: var(--light-accent);
-        }
-
-        /* Bagian Konten Utama */
-        main {
-            padding: 2rem 0;
-        }
-
-        section {
-            padding: 40px 0;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-        }
-
-        h2, h3, h4 {
-            color: var(--light-accent);
-            margin-bottom: 1rem;
-        }
-        
-        section:target::before {
-            content: "";
-            display: block;
-            height: 100px; 
-            margin: -100px 0 0;
-        }
-
-        /* Hero Section (HOME) */
-        .hero-section {
-            min-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .section-title {
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://risepack.id/wp-content/uploads/2023/09/packaging-baju.jpeg') no-repeat center center/cover;
-            border-radius: 8px;
-            margin-bottom: 40px;
-            padding: 40px 20px;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #4ade80;
         }
 
-        .hero-section h2 {
-            font-size: 3.5em;
-            color: var(--gold-accent);
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .fashion-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(74, 222, 128, 0.1);
+            height: 300px;
+        }
+
+        .fashion-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(74, 222, 128, 0.3);
+        }
+
+        .fashion-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #0d2818;
+        }
+
+        .fashion-info {
+            padding: 1rem;
+        }
+
+        .fashion-info h3 {
+            color: #4ade80;
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
-        .hero-section p {
-            font-size: 1.3em;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            color: var(--light-accent);
+        .fashion-info p {
+            color: #cccccc;
+            font-size: 0.9rem;
         }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--gold-accent);
-            color: var(--dark-green);
-            padding: 12px 30px;
-            text-decoration: none;
+        .price {
+            color: #4ade80;
             font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-            font-size: 1.1em;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
         }
 
-        .cta-button:hover {
-            background-color: #e6c200;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            background: rgba(13, 40, 24, 0.5);
         }
 
-        /* Grid Layout */
-        .grid-container {
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
+            gap: 2rem;
         }
 
-        /* ABOUT Section Styling */
-        .about-grid h4 {
-            color: var(--gold-accent);
-            border-bottom: 2px solid var(--gold-accent);
-            padding-bottom: 5px;
-        }
-        
-        /* DESIGN SERVICES Section Styling */
-        .service-card, .form-section {
-            background-color: var(--darker-bg);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s;
-            margin-bottom: 20px;
-        }
-        
-        .service-card:hover {
-            background-color: rgba(0, 37, 26, 0.8);
-        }
-        
-        .service-card h4 {
-            margin-top: 0;
-            color: var(--light-accent);
-        }
-
-        /* FORM STYLING */
-        .design-form label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--light-accent);
-        }
-        
-        .design-form input[type="text"],
-        .design-form input[type="email"],
-        .design-form input[type="file"],
-        .design-form textarea,
-        .design-form select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid var(--text-color);
-            border-radius: 4px;
-            background-color: var(--dark-green);
-            color: var(--light-accent);
-            font-size: 1em;
-        }
-        
-        .design-form textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .design-form input[type="file"] {
-            border: none;
-            padding: 5px 0;
-        }
-
-        .design-form button {
-            background-color: var(--gold-accent);
-            color: var(--dark-green);
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
+        .service-card {
+            background: rgba(26, 77, 58, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(74, 222, 128, 0.2);
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
         }
 
-        .design-form button:hover {
-            background-color: #e6c200;
-            transform: translateY(-2px);
+        .service-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(74, 222, 128, 0.2);
         }
 
-        /* NEWS Section Styling */
-        .news-article {
-            background-color: var(--darker-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4ade80;
+            animation: bounce 2s infinite;
         }
-        
-        .news-article:hover {
-            transform: translateY(-5px);
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
-        
-        .news-article small {
-            display: block;
-            color: var(--gold-accent);
-            margin-top: 10px;
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4ade80;
+        }
+
+        /* Interactive Elements */
+        .interactive-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.4), rgba(13, 40, 24, 0.8));
+        }
+
+        .interactive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .color-picker {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+            border-color: #4ade80;
+        }
+
+        .color-option.active {
+            border-color: #4ade80;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.3), rgba(13, 40, 24, 0.7));
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #4ade80;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(74, 222, 128, 0.2);
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ade80;
+            counter-reset: number;
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 2rem;
+            background: rgba(13, 40, 24, 0.8);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 2px solid rgba(74, 222, 128, 0.3);
+            border-radius: 10px;
+            background: rgba(26, 77, 58, 0.3);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #4ade80;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+            transform: scale(1.02);
+        }
+
+        .contact-form textarea {
+            grid-column: 1 / -1;
+            min-height: 120px;
+            resize: vertical;
         }
 
         /* Footer */
-        footer {
-            background-color: var(--darker-bg);
-            color: var(--text-color);
+        .footer {
+            background: #0d2818;
+            padding: 3rem 2rem 1rem;
             text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        /* Media Queries untuk Responsif */
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #4ade80;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #4ade80;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(74, 222, 128, 0.2);
+            padding-top: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                text-align: center;
+            .nav-menu {
+                display: none;
             }
-            nav ul {
-                padding-top: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
+
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            nav ul li {
-                margin: 5px 10px;
-            }
-            .hero-section h2 {
-                font-size: 2.5em;
-            }
-            .grid-container {
+
+            .about-container {
                 grid-template-columns: 1fr;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #4ade80;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float-particle 6s linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <svg class="loading-logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="400" fill="#1a4d3a"/>
+                <text x="200" y="180" text-anchor="middle" fill="white" font-size="120" font-weight="bold" font-family="Arial">NXT</text>
+                <text x="200" y="280" text-anchor="middle" fill="white" font-size="40" font-family="Arial">NexTeen</text>
+            </svg>
+            <div class="loading-text">Memuat Koleksi Fashion Terbaru...</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
 
-    <header>
-        <div class="container">
-            <h1>NXT</h1>
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <svg class="logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="400" fill="#1a4d3a" rx="20"/>
+                <text x="200" y="180" text-anchor="middle" fill="white" font-size="120" font-weight="bold" font-family="Arial">NXT</text>
+                <text x="200" y="280" text-anchor="middle" fill="white" font-size="40" font-family="Arial">NexTeen</text>
+            </svg>
             <nav>
-                <ul>
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Design Services</a></li>
-                    <li><a href="#news">News</a></li>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home">Beranda</a>
+                        <div class="dropdown">
+                            <h4>Selamat Datang di NexTeen</h4>
+                            <p>Temukan koleksi fashion terdepan untuk generasi muda yang dinamis. Dari streetwear hingga formal wear, kami hadirkan gaya yang mencerminkan kepribadian unik Anda.</p>
+                            <div class="dropdown-links">
+                                <a href="#new-arrivals">Koleksi Terbaru</a>
+                                <a href="#trending">Trending Now</a>
+                                <a href="#featured">Produk Unggulan</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#fashion">Fashion</a>
+                        <div class="dropdown">
+                            <h4>Koleksi Fashion Lengkap</h4>
+                            <p>Jelajahi berbagai kategori fashion mulai dari casual wear, formal attire, streetwear, hingga aksesoris premium. Setiap produk dipilih khusus untuk memenuhi kebutuhan gaya hidup modern.</p>
+                            <div class="dropdown-links">
+                                <a href="#men-fashion">Fashion Pria</a>
+                                <a href="#women-fashion">Fashion Wanita</a>
+                                <a href="#accessories">Aksesoris</a>
+                                <a href="#shoes">Sepatu & Sandal</a>
+                                <a href="#bags">Tas & Dompet</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#services">Layanan</a>
+                        <div class="dropdown">
+                            <h4>Layanan Premium NexTeen</h4>
+                            <p>Nikmati pengalaman berbelanja yang tak terlupakan dengan layanan eksklusif kami. Dari personal styling hingga custom design, kami siap membantu mewujudkan gaya impian Anda.</p>
+                            <div class="dropdown-links">
+                                <a href="#personal-styling">Personal Styling</a>
+                                <a href="#custom-design">Custom Design</a>
+                                <a href="#size-consultation">Konsultasi Ukuran</a>
+                                <a href="#express-delivery">Pengiriman Express</a>
+                                <a href="#vip-service">VIP Service</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about">Tentang</a>
+                        <div class="dropdown">
+                            <h4>Tentang NexTeen</h4>
+                            <p>Didirikan dengan visi menjadi pioneer fashion untuk generasi muda, NexTeen menghadirkan inovasi dalam dunia fashion dengan menggabungkan tren global dan sentuhan lokal yang autentik.</p>
+                            <div class="dropdown-links">
+                                <a href="#our-story">Cerita Kami</a>
+                                <a href="#team">Tim Kreatif</a>
+                                <a href="#sustainability">Sustainability</a>
+                                <a href="#awards">Penghargaan</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact">Kontak</a>
+                        <div class="dropdown">
+                            <h4>Hubungi NexTeen</h4>
+                            <p>Tim customer service kami siap membantu Anda 24/7. Hubungi kami melalui berbagai channel komunikasi atau kunjungi flagship store kami di berbagai kota besar.</p>
+                            <div class="dropdown-links">
+                                <a href="#live-chat">Live Chat</a>
+                                <a href="#whatsapp">WhatsApp</a>
+                                <a href="#email">Email Support</a>
+                                <a href="#store-locator">Lokasi Toko</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
+            <button class="cta-button" onclick="showSpecialOffer()">Belanja Sekarang</button>
         </div>
     </header>
 
-    <main class="container">
-        
-        <section id="home" class="hero-section">
-            <h2>Elegansi Kontemporer dalam Setiap Benang</h2>
-            <p>NXT mendefinisikan ulang fashion dengan desain berani, keberlanjutan, dan kualitas tak tertandingi untuk masa depan gaya Anda.</p>
-            <a href="#services" class="cta-button">Jelajahi Koleksi Terbaru</a>
-        </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container fade-in">
+            <h1>Fashion Masa Depan Dimulai di NexTeen</h1>
+            <p>Temukan koleksi fashion terdepan yang menggabungkan gaya kontemporer dengan kenyamanan maksimal. Ekspresikan kepribadian unik Anda dengan pilihan fashion yang tak terbatas.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="exploreCollection()">Jelajahi Koleksi</button>
+                <button class="btn-secondary" onclick="watchLookbook()">Lihat Lookbook</button>
+            </div>
+        </div>
+    </section>
 
-        <section id="about">
-            <h3>Tentang NXT Fashion: Filosofi, Visi, dan Tim Kreatif 💡</h3>
-            <p>Didirikan pada tahun 2025 di Jakarta, **NXT Fashion** lahir dari kebutuhan akan mode yang lebih bermakna. Kami percaya bahwa setiap pakaian harus menggabungkan estetika tinggi, kenyamanan, dan tanggung jawab sosial. Kami bukan hanya merek; kami adalah gerakan menuju industri *fashion* yang lebih etis dan inovatif.</p>
-            
-            <div class="grid-container about-grid">
-                <div>
-                    <h4>🌱 Keberlanjutan Inti & Etika Produksi</h4>
-                    <p>Kami memprioritaskan penggunaan bahan daur ulang, organik (seperti katun bersertifikat GOTS dan rami), dan bersumber secara etis. Rantai pasokan kami 100% transparan, memastikan setiap pekerja dibayar dengan adil (sesuai standar *Fair Trade*) dan bekerja dalam kondisi yang aman. Tujuan kami adalah mencapai status **carbon neutral** dalam lima tahun ke depan.</p>
+    <!-- Fashion Gallery -->
+    <section id="fashion" class="fashion-gallery">
+        <div class="gallery-container">
+            <h2 class="section-title">Koleksi Fashion Terbaru</h2>
+            <div class="gallery-grid" id="fashionGrid">
+                <div class="fashion-item" onclick="showProductDetail('Streetwear Collection')">
+                    <div class="fashion-image">👕</div>
+                    <div class="fashion-info">
+                        <h3>Streetwear Collection</h3>
+                        <p>Koleksi streetwear yang menggabungkan comfort dan style untuk aktivitas sehari-hari</p>
+                        <div class="price">Rp 299.000 - Rp 599.000</div>
+                    </div>
                 </div>
-                <div>
-                    <h4>✨ Estetika Minimalis Berani</h4>
-                    <p>Desain kami menonjolkan potongan (*cutting*) yang tajam, siluet yang bersih, dan palet warna yang terinspirasi dari alam, termasuk palet **dark green** khas kami yang melambangkan pertumbuhan dan kemewahan alami. Kami menciptakan pakaian *wearable art* yang abadi, menolak tren *fast fashion*.</p>
+                <div class="fashion-item" onclick="showProductDetail('Formal Attire')">
+                    <div class="fashion-image">👔</div>
+                    <div class="fashion-info">
+                        <h3>Formal Attire</h3>
+                        <p>Busana formal premium untuk acara penting dan lingkungan profesional</p>
+                        <div class="price">Rp 799.000 - Rp 1.299.000</div>
+                    </div>
                 </div>
-                <div>
-                    <h4>🧑‍🎨 Tim Kreatif & Inovasi Material</h4>
-                    <p>Dipimpin oleh **Alisa Chandra**, Direktur Kreatif visioner, tim R&D kami terus bereksperimen dengan tekstil pintar dan serat bioteknologi (misalnya, serat yang dibuat dari alga) untuk mengurangi jejak karbon. Kami berinvestasi dalam teknologi 3D *printing* untuk meminimalkan sisa kain (*fabric waste*).</p>
+                <div class="fashion-item" onclick="showProductDetail('Casual Wear')">
+                    <div class="fashion-image">👖</div>
+                    <div class="fashion-info">
+                        <h3>Casual Wear</h3>
+                        <p>Pakaian kasual yang nyaman untuk berbagai aktivitas santai dan hangout</p>
+                        <div class="price">Rp 199.000 - Rp 449.000</div>
+                    </div>
                 </div>
-                <div>
-                    <h4>🤝 Keterlibatan Komunitas</h4>
-                    <p>NXT bangga bermitra dengan pengrajin lokal di Indonesia untuk melestarikan teknik tenun dan batik tradisional, mengintegrasikannya ke dalam desain modern kami. Ini memastikan bahwa warisan budaya tetap hidup dan berkelanjutan secara ekonomi.</p>
+                <div class="fashion-item" onclick="showProductDetail('Accessories')">
+                    <div class="fashion-image">👜</div>
+                    <div class="fashion-info">
+                        <h3>Premium Accessories</h3>
+                        <p>Aksesoris berkualitas tinggi untuk melengkapi penampilan Anda</p>
+                        <div class="price">Rp 149.000 - Rp 899.000</div>
+                    </div>
+                </div>
+                <div class="fashion-item" onclick="showProductDetail('Footwear')">
+                    <div class="fashion-image">👟</div>
+                    <div class="fashion-info">
+                        <h3>Trendy Footwear</h3>
+                        <p>Koleksi sepatu trendy dari sneakers hingga formal shoes</p>
+                        <div class="price">Rp 399.000 - Rp 1.199.000</div>
+                    </div>
+                </div>
+                <div class="fashion-item" onclick="showProductDetail('Seasonal')">
+                    <div class="fashion-image">🧥</div>
+                    <div class="fashion-info">
+                        <h3>Seasonal Collection</h3>
+                        <p>Koleksi musiman yang mengikuti tren fashion global terkini</p>
+                        <div class="price">Rp 349.000 - Rp 799.000</div>
+                    </div>
                 </div>
             </div>
-        </section>
-        
-        <hr/>
+        </div>
+    </section>
 
-        <section id="services">
-            <h3>Layanan Desain Kami: Ciptakan Karya Anda Bersama NXT ✂️</h3>
-            <p>Kami menawarkan pengalaman *fashion* yang menyeluruh, mulai dari pakaian siap pakai hingga kreasi *couture* pribadi yang unik. Layanan kami dirancang untuk merealisasikan visi gaya Anda dengan kualitas tertinggi.</p>
-            
-            <div class="grid-container">
-                <div class="service-card">
-                    <h4>1. Ready-to-Wear (RTW) & Koleksi Kapsul</h4>
-                    <p>Koleksi musiman yang dirancang untuk gaya hidup urban yang dinamis. Setiap koleksi RTW juga menyertakan koleksi kapsul terbatas (*limited capsule collection*) hasil kolaborasi dengan seniman kontemporer.</p>
-                    <ul>
-                        <li><small>Lookbook Digital Musim Terbaru tersedia.</small></li>
-                        <li><small>Pemesanan online dan di *flagship store*.</small></li>
-                    </ul>
-                </div>
-                
-                <div class="service-card">
-                    <h4>2. Bespoke Tailoring (Jahitan Kustom)</h4>
-                    <p>Layanan penjahitan pribadi untuk acara-acara penting (*wedding, gala, corporate*). Kami memberikan konsultasi mendalam mengenai siluet, bahan (wol, sutra, linen premium), dan detail interior pakaian untuk hasil yang benar-benar *one-of-a-kind*.</p>
-                    <p><small>Proses: Konsultasi Awal > Sketsa Desain > Pemilihan Material > *Multiple Fitting Sessions* > Penyelesaian.</small></p>
-                </div>
+    <!-- Interactive Section -->
+    <section class="interactive-section">
+        <div class="interactive-container">
+            <h2 class="section-title">Personalisasi Gaya Anda</h2>
+            <p>Pilih warna favorit Anda untuk melihat rekomendasi produk yang sesuai</p>
+            <div class="color-picker">
+                <div class="color-option active" style="background: #4ade80;" onclick="changeTheme('#4ade80')"></div>
+                <div class="color-option" style="background: #3b82f6;" onclick="changeTheme('#3b82f6')"></div>
+                <div class="color-option" style="background: #ef4444;" onclick="changeTheme('#ef4444')"></div>
+                <div class="color-option" style="background: #f59e0b;" onclick="changeTheme('#f59e0b')"></div>
+                <div class="color-option" style="background: #8b5cf6;" onclick="changeTheme('#8b5cf6')"></div>
+            </div>
+            <button class="btn-primary" onclick="generateOutfit()">Generate Outfit Saya</button>
+        </div>
+    </section>
 
-                <div class="service-card">
-                    <h4>3. Konsultasi Gaya & Restorasi Pakaian</h4>
-                    <p>Layanan konsultasi *fashion* profesional untuk menyusun lemari pakaian kapsul, serta layanan restorasi dan perbaikan pakaian premium yang sudah ada untuk memperpanjang usia pakainya, sejalan dengan filosofi keberlanjutan kami.</p>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="services-container">
+            <h2 class="section-title">Layanan Eksklusif</h2>
+            <div class="services-grid">
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">✨</div>
+                    <h3>Personal Styling</h3>
+                    <p>Konsultasi gaya personal dengan fashion stylist berpengalaman untuk menemukan look yang sempurna sesuai kepribadian dan kebutuhan Anda.</p>
+                </div>
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">🎨</div>
+                    <h3>Custom Design</h3>
+                    <p>Layanan desain khusus untuk menciptakan pakaian unik sesuai keinginan Anda dengan bahan premium dan craftsmanship terbaik.</p>
+                </div>
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">📏</div>
+                    <h3>Perfect Fit Guarantee</h3>
+                    <p>Jaminan ukuran yang pas dengan layanan pengukuran profesional dan alterasi gratis untuk kepuasan maksimal.</p>
+                </div>
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">🚀</div>
+                    <h3>Express Delivery</h3>
+                    <p>Pengiriman kilat dalam 24 jam untuk area Jakarta dan sekitarnya, dengan packaging premium dan tracking real-time.</p>
+                </div>
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">💎</div>
+                    <h3>VIP Membership</h3>
+                    <p>Program membership eksklusif dengan benefit special discount, early access, dan invitation ke fashion event terbatas.</p>
+                </div>
+                <div class="service-card" onclick="animateCard(this)">
+                    <div class="service-icon">🔄</div>
+                    <h3>Easy Return</h3>
+                    <p>Kebijakan return mudah hingga 30 hari dengan proses yang simpel dan customer service yang responsif.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <h3 style="margin-top: 40px;">Formulir Pengajuan Desain Kustom Anda</h3>
-            <div class="form-section">
-                <p>Miliki pakaian impian Anda yang dibuat khusus oleh tim desainer NXT. Mohon isi detail berikut dan lampirkan referensi visual (sketsa, foto) Anda.</p>
-                
-                <form class="design-form" action="/submit_design" method="POST" enctype="multipart/form-data">
-                    <label for="nama">Nama Lengkap:</label>
-                    <input type="text" id="nama" name="nama" required>
-
-                    <label for="email">Email Kontak:</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="jenis_pakaian">Jenis Pakaian yang Diinginkan:</label>
-                    <select id="jenis_pakaian" name="jenis_pakaian" required>
-                        <option value="">-- Pilih Jenis --</option>
-                        <option value="Jas/Tuxedo">Jas/Tuxedo</option>
-                        <option value="Gaun Malam">Gaun Malam</option>
-                        <option value="Pakaian Kasual Kustom">Pakaian Kasual Kustom</option>
-                        <option value="Lainnya">Lainnya (Jelaskan di Keterangan)</option>
-                    </select>
-
-                    <label for="keterangan">Deskripsi Konsep Desain (Bahan, Warna, Acara, dll.):</label>
-                    <textarea id="keterangan" name="keterangan" required></textarea>
-
-                    <label for="file_desain">Lampirkan Sketsa/Referensi Visual (Maks. 5MB):</label>
-                    <input type="file" id="file_desain" name="file_desain" accept=".jpg, .jpeg, .png, .pdf">
-
-                    <button type="submit">Kirim Pengajuan Desain</button>
-                </form>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-content fade-in">
+                <h2>Tentang NexTeen</h2>
+                <p>NexTeen lahir dari passion untuk menghadirkan fashion berkualitas tinggi yang accessible untuk generasi muda Indonesia. Kami percaya bahwa fashion adalah bentuk ekspresi diri yang powerful.</p>
+                <p>Dengan menggabungkan tren global dan sentuhan lokal, kami menciptakan koleksi yang tidak hanya stylish tetapi juga sustainable dan ethical. Setiap produk dipilih dengan cermat untuk memastikan kualitas terbaik.</p>
+                <p>Bergabunglah dengan komunitas fashion lovers yang terus berkembang dan temukan gaya autentik Anda bersama NexTeen.</p>
             </div>
-        </section>
-
-        <hr/>
-
-        <section id="news">
-            <h3>Berita Terbaru & Sorotan Media 📰</h3>
-            <p>Ikuti perkembangan terbaru NXT, mulai dari peluncuran koleksi, liputan media internasional, hingga inisiatif keberlanjutan dan kolaborasi kami.</p>
-            
-            <div class="grid-container">
-                
-                <article class="news-article">
-                    <h4>🏆 NXT Memenangkan "Sustainable Fashion Award 2025"</h4>
-                    <p>NXT meraih penghargaan bergengsi di Milan atas penggunaan inovatif serat nanas (Piñatex) sebagai pengganti kulit dalam lini aksesoris kami. Kami membuktikan bahwa kemewahan bisa sejalan dengan keberlanjutan.</p>
-                    <small>Published: 15 November 2025 | Kategori: Penghargaan & Etika</small>
-                </article>
-                
-                <article class="news-article">
-                    <h4>🗓️ Eksklusif: Preview Koleksi Resort 2026 di Paris Fashion Week</h4>
-                    <p>Direktur Kreatif NXT, Ibu Alisa Chandra, akan mempresentasikan koleksi *Resort* terbarunya, menampilkan tenun ikat Sumba yang dimodifikasi secara modern. Acara akan disiarkan langsung melalui kanal YouTube kami.</p>
-                    <small>Published: 1 November 2025 | Kategori: Event & Fashion Show</small>
-                </article>
-                
-                <article class="news-article">
-                    <h4>🤝 Kolaborasi NXT dengan Seniman Patung Eko Nugroho</h4>
-                    <p>NXT mengumumkan kolaborasi unik dengan seniman kontemporer Eko Nugroho untuk koleksi kapsul terbatas "Interaksi". Koleksi ini akan menampilkan motif-motif khas Eko pada jaket dan *outerwear* NXT.</p>
-                    <small>Published: 18 Oktober 2025 | Kategori: Kolaborasi Seni</small>
-                </article>
-                
-                <article class="news-article">
-                    <h4>🌐 NXT Buka Flagship Store Global Pertama di London</h4>
-                    <p>Dalam ekspansi internasional, toko NXT yang baru dibuka di Mayfair, London, dirancang dengan material daur ulang dan menampilkan instalasi seni dari desainer Indonesia.</p>
-                    <small>Published: 1 Oktober 2025 | Kategori: Ekspansi Bisnis</small>
-                </article>
-
+            <div class="stats fade-in">
+                <div class="stat-item" onclick="animateStat(this)">
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div>Happy Customers</div>
+                </div>
+                <div class="stat-item" onclick="animateStat(this)">
+                    <div class="stat-number" data-target="1000">0</div>
+                    <div>Produk Tersedia</div>
+                </div>
+                <div class="stat-item" onclick="animateStat(this)">
+                    <div class="stat-number" data-target="25">0</div>
+                    <div>Kota Terjangkau</div>
+                </div>
+                <div class="stat-item" onclick="animateStat(this)">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div>Satisfaction Rate (%)</div>
+                </div>
             </div>
-        </section>
-        
-        <hr/>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 NXT Fashion. Semua Hak Cipta Dilindungi. | Inovasi dalam Gaya dan Etika.</p>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <p>Punya pertanyaan atau butuh bantuan? Tim customer service kami siap membantu Anda 24/7</p>
+            <form class="contact-form fade-in" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Nama Lengkap" required>
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Nomor WhatsApp">
+                    <input type="text" placeholder="Subjek">
+                </div>
+                <textarea placeholder="Pesan Anda..." required></textarea>
+                <button type="submit" class="btn-primary">Kirim Pesan</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NexTeen</h3>
+                    <p>Fashion terdepan untuk generasi muda yang berani mengekspresikan diri. Temukan gaya autentik Anda bersama kami.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Kategori Fashion</h3>
+                    <a href="#">Streetwear</a>
+                    <a href="#">Formal Wear</a>
+                    <a href="#">Casual Collection</a>
+                    <a href="#">Accessories</a>
+                    <a href="#">Footwear</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Care</h3>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Shipping Info</a>
+                    <a href="#">Return Policy</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Live Chat</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <a href="mailto:hello@nexteen.com">hello@nexteen.com</a>
+                    <a href="tel:+6281234567890">+62 812-3456-7890</a>
+                    <a href="#">Jakarta, Indonesia</a>
+                    <a href="#">Follow @nexteen_id</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 NexTeen. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
         </div>
     </footer>
 
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // Particle System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 6000);
+            }, 300);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Interactive Functions
+        function showSpecialOffer() {
+            alert('🎉 Special Offer! Dapatkan diskon 30% untuk pembelian pertama Anda! Gunakan kode: NEXTEEN30');
+        }
+
+        function exploreCollection() {
+            document.getElementById('fashion').scrollIntoView({ behavior: 'smooth' });
+            // Add sparkle effect
+            createSparkles();
+        }
+
+        function watchLookbook() {
+            alert('📸 Lookbook NexTeen akan segera hadir! Stay tuned untuk inspirasi fashion terbaru.');
+        }
+
+        function showProductDetail(productName) {
+            const details = {
+                'Streetwear Collection': 'Koleksi streetwear premium dengan bahan cotton combed 30s, tersedia dalam berbagai warna dan ukuran. Perfect untuk gaya kasual yang tetap stylish!',
+                'Formal Attire': 'Busana formal berkualitas tinggi dengan cutting yang presisi. Cocok untuk meeting, interview, atau acara formal lainnya.',
+                'Casual Wear': 'Pakaian kasual yang nyaman untuk aktivitas sehari-hari. Dibuat dengan bahan yang breathable dan design yang timeless.',
+                'Accessories': 'Aksesoris premium untuk melengkapi outfit Anda. Dari tas hingga perhiasan, semuanya dipilih dengan standar kualitas tinggi.',
+                'Footwear': 'Koleksi sepatu trendy dari brand ternama. Comfortable, stylish, dan durable untuk berbagai aktivitas.',
+                'Seasonal': 'Koleksi musiman yang mengikuti tren fashion global. Limited edition dengan design eksklusif.'
+            };
+            
+            alert(`✨ ${productName}\n\n${details[productName]}\n\n💫 Tertarik? Hubungi customer service kami untuk info lebih lanjut!`);
+        }
+
+        function changeTheme(color) {
+            // Remove active class from all color options
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Add active class to clicked option
+            event.target.classList.add('active');
+            
+            // Change CSS custom properties
+            document.documentElement.style.setProperty('--accent-color', color);
+            
+            // Update all elements with the accent color
+            const elements = document.querySelectorAll('.service-icon, .section-title, .stat-number, .logo, .nav-menu a:hover');
+            elements.forEach(el => {
+                el.style.color = color;
+            });
+            
+            alert(`🎨 Tema berhasil diubah! Warna ${color} akan menjadi aksen utama untuk rekomendasi produk Anda.`);
+        }
+
+        function generateOutfit() {
+            const outfits = [
+                '👕 Casual Tee + 👖 Denim Jeans + 👟 White Sneakers',
+                '👔 Formal Shirt + 👖 Chino Pants + 👞 Leather Shoes',
+                '🧥 Hoodie + 👖 Jogger Pants + 👟 Running Shoes',
+                '👗 Midi Dress + 👠 Heels + 👜 Clutch Bag',
+                '👕 Crop Top + 👖 High Waist Jeans + 👟 Canvas Shoes'
+            ];
+            
+            const randomOutfit = outfits[Math.floor(Math.random() * outfits.length)];
+            alert(`✨ Outfit Recommendation untuk Anda:\n\n${randomOutfit}\n\n💡 Cocok untuk gaya yang Anda pilih! Mau lihat produk serupa?`);
+        }
+
+        function animateCard(card) {
+            card.style.transform = 'scale(1.05) rotateY(10deg)';
+            card.style.boxShadow = '0 20px 40px rgba(74, 222, 128, 0.4)';
+            
+            setTimeout(() => {
+                card.style.transform = 'scale(1) rotateY(0deg)';
+                card.style.boxShadow = '0 15px 35px rgba(74, 222, 128, 0.2)';
+            }, 300);
+        }
+
+        function animateStat(statItem) {
+            const numberElement = statItem.querySelector('.stat-number');
+            const target = parseInt(numberElement.getAttribute('data-target'));
+            let current = 0;
+            const increment = target / 50;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                numberElement.textContent = Math.floor(current);
+            }, 30);
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Show loading animation
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Mengirim...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('✅ Pesan berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.');
+                event.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                    sparkle.style.fontSize = '20px';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '9999';
+                    sparkle.style.animation = 'fadeInUp 1s ease-out forwards';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 1000);
+                }, i * 100);
+            }
+        }
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(13, 40, 24, 0.98)';
+                header.style.transform = 'translateY(0)';
+            } else {
+                header.style.background = 'rgba(13, 40, 24, 0.95)';
+            }
+        });
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add hover effects to fashion items
+            document.querySelectorAll('.fashion-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02) rotateY(5deg)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1) rotateY(0deg)';
+                });
+            });
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when hero is visible
+        const heroTitle = document.querySelector('.hero h1');
+        const heroText = heroTitle.textContent;
+        
+        setTimeout(() => {
+            typeWriter(heroTitle, heroText, 50);
+        }, 2500);
+    </script>
 </body>
 </html>
-```
