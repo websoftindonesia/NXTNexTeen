@@ -15,66 +15,133 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #ffffff;
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
+            background: #0f2419;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Loading Screen */
+        /* Enhanced Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
+            background: linear-gradient(45deg, #0f2419, #1a4d3a, #0f2419);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .loading-content {
             text-align: center;
+            position: relative;
         }
 
-        .loading-logo {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 2rem;
-            animation: pulse 2s infinite;
+        .loading-animation {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
         }
 
-        .loading-text {
-            font-size: 1.5rem;
+        .fashion-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotate 4s linear infinite;
+        }
+
+        .fashion-icon {
+            position: absolute;
+            font-size: 2.5rem;
             color: #4ade80;
-            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(74, 222, 128, 0.3);
-            border-top: 4px solid #4ade80;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
+        .fashion-icon:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+        .fashion-icon:nth-child(2) { top: 25%; right: 0; animation-delay: 0.5s; }
+        .fashion-icon:nth-child(3) { bottom: 25%; right: 0; animation-delay: 1s; }
+        .fashion-icon:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1.5s; }
+        .fashion-icon:nth-child(5) { bottom: 25%; left: 0; animation-delay: 2s; }
+        .fashion-icon:nth-child(6) { top: 25%; left: 0; animation-delay: 2.5s; }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes spin {
+        @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
+        .loading-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(74, 222, 128, 0.3);
+            border-top: 4px solid #4ade80;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.8rem;
+            color: #4ade80;
+            margin-bottom: 1rem;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(74, 222, 128, 0.5); }
+            to { text-shadow: 0 0 20px rgba(74, 222, 128, 0.8), 0 0 30px rgba(74, 222, 128, 0.6); }
+        }
+
+        .loading-subtitle {
+            font-size: 1rem;
+            color: #cccccc;
+            opacity: 0.8;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(74, 222, 128, 0.2);
+            border-radius: 2px;
+            margin: 2rem auto 0;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+            border-radius: 2px;
+            animation: loadingProgress 3s ease-in-out;
+        }
+
+        @keyframes loadingProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
         /* Header */
         .header {
-            background: rgba(13, 40, 24, 0.95);
+            background: rgba(15, 36, 25, 0.95);
             backdrop-filter: blur(10px);
             position: fixed;
             top: 0;
@@ -86,7 +153,7 @@
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -98,16 +165,17 @@
             width: 80px;
             height: 60px;
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-item {
@@ -118,30 +186,60 @@
             color: #ffffff;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 5px;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #4ade80;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
         .nav-menu a:hover {
             color: #4ade80;
             background: rgba(74, 222, 128, 0.1);
+            transform: translateY(-2px);
         }
 
-        /* Dropdown Menu */
+        .nav-menu a:hover::after {
+            width: 80%;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Dropdown Menu - Enhanced */
         .dropdown {
             position: absolute;
             top: 100%;
             left: 0;
-            background: rgba(13, 40, 24, 0.98);
-            min-width: 300px;
-            border-radius: 10px;
-            padding: 1rem;
+            background: rgba(15, 36, 25, 0.98);
+            min-width: 400px;
+            border-radius: 15px;
+            padding: 2rem;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(74, 222, 128, 0.2);
         }
 
         .nav-item:hover .dropdown {
@@ -152,15 +250,36 @@
 
         .dropdown h4 {
             color: #4ade80;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+            padding-bottom: 0.5rem;
         }
 
         .dropdown p {
             color: #cccccc;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .dropdown-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .dropdown-section {
+            background: rgba(26, 77, 58, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(74, 222, 128, 0.1);
+        }
+
+        .dropdown-section h5 {
+            color: #4ade80;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .dropdown-links {
@@ -181,11 +300,12 @@
         .dropdown-links a:hover {
             background: rgba(74, 222, 128, 0.2);
             color: #4ade80;
+            transform: translateX(5px);
         }
 
         .cta-button {
             background: linear-gradient(45deg, #4ade80, #22c55e);
-            color: #0d2818;
+            color: #0f2419;
             padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 25px;
@@ -195,16 +315,15 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.4);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.4);
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
             padding: 4rem 2rem;
             text-align: center;
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.8), rgba(13, 40, 24, 0.9));
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.8), rgba(15, 36, 25, 0.9));
             position: relative;
             overflow: hidden;
         }
@@ -262,7 +381,7 @@
 
         .btn-primary {
             background: linear-gradient(45deg, #4ade80, #22c55e);
-            color: #0d2818;
+            color: #0f2419;
             padding: 1rem 2rem;
             border: none;
             border-radius: 30px;
@@ -338,7 +457,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: rgba(74, 222, 128, 0.1);
-            height: 300px;
+            height: 350px;
         }
 
         .fashion-item:hover {
@@ -348,13 +467,53 @@
 
         .fashion-image {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #4ade80, #22c55e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #0d2818;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fashion-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(74, 222, 128, 0.1), rgba(34, 197, 94, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fashion-item:hover .fashion-image::before {
+            opacity: 1;
+        }
+
+        /* Fashion Images */
+        .streetwear-bg {
+            background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+        }
+
+        .formal-bg {
+            background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+        }
+
+        .casual-bg {
+            background-image: url('https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+        }
+
+        .accessories-bg {
+            background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+        }
+
+        .footwear-bg {
+            background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+        }
+
+        .seasonal-bg {
+            background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
         }
 
         .fashion-info {
@@ -378,10 +537,162 @@
             margin-top: 0.5rem;
         }
 
+        /* Request Design Form */
+        .request-design {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.4), rgba(15, 36, 25, 0.8));
+        }
+
+        .request-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .design-form {
+            background: rgba(26, 77, 58, 0.6);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            color: #4ade80;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-template-columns: 1fr;
+        }
+
+        .design-form input,
+        .design-form textarea,
+        .design-form select {
+            padding: 1rem;
+            border: 2px solid rgba(74, 222, 128, 0.3);
+            border-radius: 10px;
+            background: rgba(15, 36, 25, 0.5);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .design-form input:focus,
+        .design-form textarea:focus,
+        .design-form select:focus {
+            outline: none;
+            border-color: #4ade80;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+            transform: scale(1.02);
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 2rem;
+            border: 2px dashed rgba(74, 222, 128, 0.5);
+            border-radius: 10px;
+            text-align: center;
+            background: rgba(15, 36, 25, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .design-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .design-type {
+            padding: 1rem;
+            border: 2px solid rgba(74, 222, 128, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(15, 36, 25, 0.3);
+        }
+
+        .design-type:hover,
+        .design-type.selected {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Interactive Elements */
+        .interactive-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.4), rgba(15, 36, 25, 0.8));
+        }
+
+        .interactive-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .color-picker {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+            border-color: #4ade80;
+        }
+
+        .color-option.active {
+            border-color: #4ade80;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+        }
+
         /* Services Section */
         .services {
             padding: 4rem 2rem;
-            background: rgba(13, 40, 24, 0.5);
+            background: rgba(15, 36, 25, 0.5);
         }
 
         .services-container {
@@ -429,48 +740,10 @@
             color: #4ade80;
         }
 
-        /* Interactive Elements */
-        .interactive-section {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.4), rgba(13, 40, 24, 0.8));
-        }
-
-        .interactive-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .color-picker {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .color-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-        }
-
-        .color-option:hover {
-            transform: scale(1.2);
-            border-color: #4ade80;
-        }
-
-        .color-option.active {
-            border-color: #4ade80;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-        }
-
         /* About Section */
         .about {
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.3), rgba(13, 40, 24, 0.7));
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.3), rgba(15, 36, 25, 0.7));
         }
 
         .about-container {
@@ -530,7 +803,7 @@
         /* Contact Section */
         .contact {
             padding: 4rem 2rem;
-            background: rgba(13, 40, 24, 0.8);
+            background: rgba(15, 36, 25, 0.8);
         }
 
         .contact-container {
@@ -543,12 +816,6 @@
             display: grid;
             gap: 1rem;
             margin-top: 2rem;
-        }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
         }
 
         .contact-form input,
@@ -578,7 +845,7 @@
 
         /* Footer */
         .footer {
-            background: #0d2818;
+            background: #0f2419;
             padding: 3rem 2rem 1rem;
             text-align: center;
         }
@@ -619,6 +886,25 @@
             opacity: 0.7;
         }
 
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #4ade80, #22c55e);
+            color: #0f2419;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
@@ -643,6 +929,10 @@
                 visibility: visible;
                 transform: none;
                 margin-top: 1rem;
+            }
+
+            .dropdown-content {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -699,21 +989,70 @@
                 opacity: 0;
             }
         }
+
+        /* Page Content Styles */
+        .page-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-card {
+            background: rgba(26, 77, 58, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.2);
+        }
+
+        .content-card h3 {
+            color: #4ade80;
+            margin-bottom: 1rem;
+        }
+
+        .content-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Enhanced Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
-            <svg class="loading-logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                <rect width="400" height="400" fill="#1a4d3a"/>
-                <text x="200" y="180" text-anchor="middle" fill="white" font-size="120" font-weight="bold" font-family="Arial">NXT</text>
-                <text x="200" y="280" text-anchor="middle" fill="white" font-size="40" font-family="Arial">NexTeen</text>
-            </svg>
-            <div class="loading-text">Memuat Koleksi Fashion Terbaru...</div>
-            <div class="loading-spinner"></div>
+            <div class="loading-animation">
+                <div class="fashion-icons">
+                    <div class="fashion-icon">👕</div>
+                    <div class="fashion-icon">👖</div>
+                    <div class="fashion-icon">👗</div>
+                    <div class="fashion-icon">🧥</div>
+                    <div class="fashion-icon">👟</div>
+                    <div class="fashion-icon">👜</div>
+                </div>
+                <div class="loading-center"></div>
+            </div>
+            <div class="loading-text">NexTeen Fashion</div>
+            <div class="loading-subtitle">Memuat Koleksi Terbaru...</div>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
         </div>
     </div>
+
+    <!-- Notification System -->
+    <div class="notification" id="notification"></div>
 
     <!-- Particles -->
     <div class="particles" id="particles"></div>
@@ -721,7 +1060,7 @@
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
-            <svg class="logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <svg class="logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" onclick="showPage('home')">
                 <rect width="400" height="400" fill="#1a4d3a" rx="20"/>
                 <text x="200" y="180" text-anchor="middle" fill="white" font-size="120" font-weight="bold" font-family="Arial">NXT</text>
                 <text x="200" y="280" text-anchor="middle" fill="white" font-size="40" font-family="Arial">NexTeen</text>
@@ -729,68 +1068,164 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#home">Beranda</a>
+                        <a href="#" onclick="showPage('home')">Beranda</a>
                         <div class="dropdown">
-                            <h4>Selamat Datang di NexTeen</h4>
-                            <p>Temukan koleksi fashion terdepan untuk generasi muda yang dinamis. Dari streetwear hingga formal wear, kami hadirkan gaya yang mencerminkan kepribadian unik Anda.</p>
-                            <div class="dropdown-links">
-                                <a href="#new-arrivals">Koleksi Terbaru</a>
-                                <a href="#trending">Trending Now</a>
-                                <a href="#featured">Produk Unggulan</a>
+                            <h4>🏠 Selamat Datang di NexTeen Fashion Hub</h4>
+                            <p>Temukan dunia fashion yang tak terbatas di NexTeen! Kami adalah destinasi utama untuk generasi muda yang ingin mengekspresikan kepribadian unik mereka melalui fashion. Dari streetwear yang edgy hingga formal wear yang elegan, setiap produk dipilih khusus untuk memenuhi kebutuhan gaya hidup modern Anda.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>✨ Koleksi Unggulan</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showNewArrivals()">🆕 New Arrivals - Koleksi Terbaru</a>
+                                        <a href="#" onclick="showTrending()">🔥 Trending Now - Sedang Viral</a>
+                                        <a href="#" onclick="showFeatured()">⭐ Featured Products - Pilihan Editor</a>
+                                        <a href="#" onclick="showBestseller()">👑 Best Sellers - Paling Laris</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>🎯 Kategori Populer</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showLimitedEdition()">💎 Limited Edition</a>
+                                        <a href="#" onclick="showSustainable()">🌱 Sustainable Fashion</a>
+                                        <a href="#" onclick="showCollaborations()">🤝 Brand Collaborations</a>
+                                        <a href="#" onclick="showExclusive()">🔒 Exclusive Collections</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#fashion">Fashion</a>
+                        <a href="#" onclick="showPage('fashion')">Fashion</a>
                         <div class="dropdown">
-                            <h4>Koleksi Fashion Lengkap</h4>
-                            <p>Jelajahi berbagai kategori fashion mulai dari casual wear, formal attire, streetwear, hingga aksesoris premium. Setiap produk dipilih khusus untuk memenuhi kebutuhan gaya hidup modern.</p>
-                            <div class="dropdown-links">
-                                <a href="#men-fashion">Fashion Pria</a>
-                                <a href="#women-fashion">Fashion Wanita</a>
-                                <a href="#accessories">Aksesoris</a>
-                                <a href="#shoes">Sepatu & Sandal</a>
-                                <a href="#bags">Tas & Dompet</a>
+                            <h4>👗 Koleksi Fashion Lengkap & Terkurasi</h4>
+                            <p>Jelajahi dunia fashion yang tak terbatas dengan koleksi lengkap NexTeen. Dari casual wear untuk aktivitas sehari-hari hingga formal attire untuk acara penting, kami menyediakan berbagai pilihan yang sesuai dengan setiap momen dalam hidup Anda. Setiap produk dipilih dengan standar kualitas tinggi dan mengikuti tren fashion global terkini.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>👔 Fashion Pria</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showMenCasual()">👕 Casual Wear - Kaos, Polo, Kemeja</a>
+                                        <a href="#" onclick="showMenFormal()">🤵 Formal Wear - Jas, Kemeja Formal</a>
+                                        <a href="#" onclick="showMenStreet()">🧢 Streetwear - Hoodie, Jogger</a>
+                                        <a href="#" onclick="showMenSports()">🏃 Sportswear - Activewear</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>👗 Fashion Wanita</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showWomenDresses()">👗 Dresses - Mini, Midi, Maxi</a>
+                                        <a href="#" onclick="showWomenTops()">👚 Tops & Blouses</a>
+                                        <a href="#" onclick="showWomenBottoms()">👖 Bottoms - Jeans, Skirts, Pants</a>
+                                        <a href="#" onclick="showWomenOuterwear()">🧥 Outerwear - Blazer, Jacket</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#services">Layanan</a>
+                        <a href="#" onclick="showPage('services')">Layanan</a>
                         <div class="dropdown">
-                            <h4>Layanan Premium NexTeen</h4>
-                            <p>Nikmati pengalaman berbelanja yang tak terlupakan dengan layanan eksklusif kami. Dari personal styling hingga custom design, kami siap membantu mewujudkan gaya impian Anda.</p>
-                            <div class="dropdown-links">
-                                <a href="#personal-styling">Personal Styling</a>
-                                <a href="#custom-design">Custom Design</a>
-                                <a href="#size-consultation">Konsultasi Ukuran</a>
-                                <a href="#express-delivery">Pengiriman Express</a>
-                                <a href="#vip-service">VIP Service</a>
+                            <h4>🎨 Layanan Premium & Eksklusif NexTeen</h4>
+                            <p>Nikmati pengalaman berbelanja fashion yang tak terlupakan dengan layanan eksklusif NexTeen. Tim ahli kami siap membantu Anda menemukan gaya yang sempurna, mulai dari konsultasi personal styling hingga custom design yang dibuat khusus sesuai keinginan Anda. Setiap layanan dirancang untuk memberikan kepuasan maksimal.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>✨ Personal Services</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showPersonalStyling()">👩‍🎨 Personal Styling Consultation</a>
+                                        <a href="#" onclick="showCustomDesign()">🎨 Custom Design Service</a>
+                                        <a href="#" onclick="showSizeConsultation()">📏 Size & Fit Consultation</a>
+                                        <a href="#" onclick="showColorAnalysis()">🌈 Color Analysis Service</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>🚀 Premium Services</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showExpressDelivery()">⚡ Express Delivery 24H</a>
+                                        <a href="#" onclick="showVIPService()">💎 VIP Membership Program</a>
+                                        <a href="#" onclick="showAlterationService()">✂️ Alteration & Tailoring</a>
+                                        <a href="#" onclick="showWardrobe()">👗 Wardrobe Consultation</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#about">Tentang</a>
+                        <a href="#" onclick="showPage('request-design')">Request Design</a>
                         <div class="dropdown">
-                            <h4>Tentang NexTeen</h4>
-                            <p>Didirikan dengan visi menjadi pioneer fashion untuk generasi muda, NexTeen menghadirkan inovasi dalam dunia fashion dengan menggabungkan tren global dan sentuhan lokal yang autentik.</p>
-                            <div class="dropdown-links">
-                                <a href="#our-story">Cerita Kami</a>
-                                <a href="#team">Tim Kreatif</a>
-                                <a href="#sustainability">Sustainability</a>
-                                <a href="#awards">Penghargaan</a>
+                            <h4>🎨 Custom Design & Collaboration Hub</h4>
+                            <p>Wujudkan ide fashion unik Anda bersama tim desainer profesional NexTeen! Apakah Anda memiliki sketsa design sendiri atau butuh bantuan untuk mengembangkan konsep, kami siap membantu merealisasikan visi fashion Anda. Dari konsep awal hingga produk jadi, setiap detail akan dikerjakan dengan presisi tinggi.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>📝 Design Request</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showDesignSubmission()">📤 Submit Your Design</a>
+                                        <a href="#" onclick="showDesignConsultation()">💬 Design Consultation</a>
+                                        <a href="#" onclick="showDesignRevision()">🔄 Design Revision Process</a>
+                                        <a href="#" onclick="showPrototype()">🧪 Prototype Development</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>🤝 Collaboration</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showDesignerPartnership()">👥 Designer Partnership</a>
+                                        <a href="#" onclick="showBrandCollaboration()">🏢 Brand Collaboration</a>
+                                        <a href="#" onclick="showInfluencerProgram()">📱 Influencer Program</a>
+                                        <a href="#" onclick="showStudentProgram()">🎓 Student Designer Program</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#contact">Kontak</a>
+                        <a href="#" onclick="showPage('about')">Tentang</a>
                         <div class="dropdown">
-                            <h4>Hubungi NexTeen</h4>
-                            <p>Tim customer service kami siap membantu Anda 24/7. Hubungi kami melalui berbagai channel komunikasi atau kunjungi flagship store kami di berbagai kota besar.</p>
-                            <div class="dropdown-links">
-                                <a href="#live-chat">Live Chat</a>
-                                <a href="#whatsapp">WhatsApp</a>
-                                <a href="#email">Email Support</a>
-                                <a href="#store-locator">Lokasi Toko</a>
+                            <h4>🌟 Tentang NexTeen - Pioneer Fashion Indonesia</h4>
+                            <p>Didirikan dengan visi menjadi pioneer fashion untuk generasi muda Indonesia, NexTeen menghadirkan revolusi dalam dunia fashion dengan menggabungkan tren global dan sentuhan lokal yang autentik. Kami percaya bahwa fashion adalah bahasa universal yang dapat mengekspresikan kepribadian, kreativitas, dan aspirasi setiap individu.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>📖 Cerita Kami</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showOurStory()">🏁 Our Journey & Milestones</a>
+                                        <a href="#" onclick="showVisionMission()">🎯 Vision & Mission</a>
+                                        <a href="#" onclick="showValues()">💎 Our Core Values</a>
+                                        <a href="#" onclick="showAchievements()">🏆 Awards & Recognition</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>👥 Tim & Komunitas</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showTeam()">👨‍💼 Meet Our Team</a>
+                                        <a href="#" onclick="showSustainability()">🌱 Sustainability Commitment</a>
+                                        <a href="#" onclick="showCommunity()">🤝 Community Impact</a>
+                                        <a href="#" onclick="showCareers()">💼 Career Opportunities</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="showPage('contact')">Kontak</a>
+                        <div class="dropdown">
+                            <h4>📞 Hubungi NexTeen - Customer Care 24/7</h4>
+                            <p>Tim customer service NexTeen siap membantu Anda kapan saja! Dengan layanan 24/7 melalui berbagai channel komunikasi, kami memastikan setiap pertanyaan, keluhan, atau kebutuhan Anda ditangani dengan cepat dan profesional. Kunjungi juga flagship store kami di berbagai kota besar untuk pengalaman berbelanja yang lebih personal.</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">
+                                    <h5>💬 Customer Support</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showLiveChat()">💬 Live Chat Support</a>
+                                        <a href="#" onclick="showWhatsApp()">📱 WhatsApp Business</a>
+                                        <a href="#" onclick="showEmailSupport()">📧 Email Support</a>
+                                        <a href="#" onclick="showPhoneSupport()">☎️ Phone Support</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <h5>🏪 Store Locations</h5>
+                                    <div class="dropdown-links">
+                                        <a href="#" onclick="showStoreLocator()">📍 Find Nearest Store</a>
+                                        <a href="#" onclick="showFlagshipStores()">🏢 Flagship Stores</a>
+                                        <a href="#" onclick="showStoreEvents()">🎉 Store Events</a>
+                                        <a href="#" onclick="showAppointment()">📅 Book Appointment</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -800,177 +1235,426 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container fade-in">
-            <h1>Fashion Masa Depan Dimulai di NexTeen</h1>
-            <p>Temukan koleksi fashion terdepan yang menggabungkan gaya kontemporer dengan kenyamanan maksimal. Ekspresikan kepribadian unik Anda dengan pilihan fashion yang tak terbatas.</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" onclick="exploreCollection()">Jelajahi Koleksi</button>
-                <button class="btn-secondary" onclick="watchLookbook()">Lihat Lookbook</button>
+    <!-- Home Page -->
+    <section id="home" class="page-section active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-container fade-in">
+                <h1>Fashion Masa Depan Dimulai di NexTeen</h1>
+                <p>Temukan koleksi fashion terdepan yang menggabungkan gaya kontemporer dengan kenyamanan maksimal. Ekspresikan kepribadian unik Anda dengan pilihan fashion yang tak terbatas.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="exploreCollection()">Jelajahi Koleksi</button>
+                    <button class="btn-secondary" onclick="watchLookbook()">Lihat Lookbook</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fashion Gallery -->
+        <div class="fashion-gallery">
+            <div class="gallery-container">
+                <h2 class="section-title">Koleksi Fashion Terbaru</h2>
+                <div class="gallery-grid" id="fashionGrid">
+                    <div class="fashion-item" onclick="showProductDetail('Streetwear Collection')">
+                        <div class="fashion-image streetwear-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Streetwear Collection</h3>
+                            <p>Koleksi streetwear yang menggabungkan comfort dan style untuk aktivitas sehari-hari</p>
+                            <div class="price">Rp 299.000 - Rp 599.000</div>
+                        </div>
+                    </div>
+                    <div class="fashion-item" onclick="showProductDetail('Formal Attire')">
+                        <div class="fashion-image formal-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Formal Attire</h3>
+                            <p>Busana formal premium untuk acara penting dan lingkungan profesional</p>
+                            <div class="price">Rp 799.000 - Rp 1.299.000</div>
+                        </div>
+                    </div>
+                    <div class="fashion-item" onclick="showProductDetail('Casual Wear')">
+                        <div class="fashion-image casual-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Casual Wear</h3>
+                            <p>Pakaian kasual yang nyaman untuk berbagai aktivitas santai dan hangout</p>
+                            <div class="price">Rp 199.000 - Rp 449.000</div>
+                        </div>
+                    </div>
+                    <div class="fashion-item" onclick="showProductDetail('Accessories')">
+                        <div class="fashion-image accessories-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Premium Accessories</h3>
+                            <p>Aksesoris berkualitas tinggi untuk melengkapi penampilan Anda</p>
+                            <div class="price">Rp 149.000 - Rp 899.000</div>
+                        </div>
+                    </div>
+                    <div class="fashion-item" onclick="showProductDetail('Footwear')">
+                        <div class="fashion-image footwear-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Trendy Footwear</h3>
+                            <p>Koleksi sepatu trendy dari sneakers hingga formal shoes</p>
+                            <div class="price">Rp 399.000 - Rp 1.199.000</div>
+                        </div>
+                    </div>
+                    <div class="fashion-item" onclick="showProductDetail('Seasonal')">
+                        <div class="fashion-image seasonal-bg"></div>
+                        <div class="fashion-info">
+                            <h3>Seasonal Collection</h3>
+                            <p>Koleksi musiman yang mengikuti tren fashion global terkini</p>
+                            <div class="price">Rp 349.000 - Rp 799.000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Section -->
+        <div class="interactive-section">
+            <div class="interactive-container">
+                <h2 class="section-title">Personalisasi Gaya Anda</h2>
+                <p>Pilih warna favorit Anda untuk melihat rekomendasi produk yang sesuai</p>
+                <div class="color-picker">
+                    <div class="color-option active" style="background: #4ade80;" onclick="changeTheme('#4ade80')"></div>
+                    <div class="color-option" style="background: #3b82f6;" onclick="changeTheme('#3b82f6')"></div>
+                    <div class="color-option" style="background: #ef4444;" onclick="changeTheme('#ef4444')"></div>
+                    <div class="color-option" style="background: #f59e0b;" onclick="changeTheme('#f59e0b')"></div>
+                    <div class="color-option" style="background: #8b5cf6;" onclick="changeTheme('#8b5cf6')"></div>
+                </div>
+                <button class="btn-primary" onclick="generateOutfit()">Generate Outfit Saya</button>
             </div>
         </div>
     </section>
 
-    <!-- Fashion Gallery -->
-    <section id="fashion" class="fashion-gallery">
-        <div class="gallery-container">
-            <h2 class="section-title">Koleksi Fashion Terbaru</h2>
-            <div class="gallery-grid" id="fashionGrid">
-                <div class="fashion-item" onclick="showProductDetail('Streetwear Collection')">
-                    <div class="fashion-image">👕</div>
-                    <div class="fashion-info">
-                        <h3>Streetwear Collection</h3>
-                        <p>Koleksi streetwear yang menggabungkan comfort dan style untuk aktivitas sehari-hari</p>
-                        <div class="price">Rp 299.000 - Rp 599.000</div>
-                    </div>
+    <!-- Fashion Page -->
+    <section id="fashion" class="page-section">
+        <div class="page-content">
+            <h2 class="section-title">Koleksi Fashion Lengkap</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: #cccccc;">Jelajahi berbagai kategori fashion yang telah dikurasi khusus untuk Anda</p>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>👔 Fashion Pria</h3>
+                    <p>Koleksi lengkap fashion pria mulai dari casual wear, formal attire, streetwear hingga sportswear. Setiap produk dipilih dengan standar kualitas tinggi dan mengikuti tren fashion global terkini.</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="showMenFashion()">Lihat Koleksi Pria</button>
                 </div>
-                <div class="fashion-item" onclick="showProductDetail('Formal Attire')">
-                    <div class="fashion-image">👔</div>
-                    <div class="fashion-info">
-                        <h3>Formal Attire</h3>
-                        <p>Busana formal premium untuk acara penting dan lingkungan profesional</p>
-                        <div class="price">Rp 799.000 - Rp 1.299.000</div>
-                    </div>
+                
+                <div class="content-card">
+                    <h3>👗 Fashion Wanita</h3>
+                    <p>Temukan berbagai pilihan fashion wanita yang elegan dan trendy. Dari dress untuk acara formal hingga casual wear untuk aktivitas sehari-hari, semuanya tersedia di sini.</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="showWomenFashion()">Lihat Koleksi Wanita</button>
                 </div>
-                <div class="fashion-item" onclick="showProductDetail('Casual Wear')">
-                    <div class="fashion-image">👖</div>
-                    <div class="fashion-info">
-                        <h3>Casual Wear</h3>
-                        <p>Pakaian kasual yang nyaman untuk berbagai aktivitas santai dan hangout</p>
-                        <div class="price">Rp 199.000 - Rp 449.000</div>
-                    </div>
+                
+                <div class="content-card">
+                    <h3>👜 Aksesoris Premium</h3>
+                    <p>Lengkapi penampilan Anda dengan koleksi aksesoris premium kami. Tas, perhiasan, jam tangan, dan aksesoris lainnya yang akan membuat outfit Anda semakin sempurna.</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="showAccessories()">Lihat Aksesoris</button>
                 </div>
-                <div class="fashion-item" onclick="showProductDetail('Accessories')">
-                    <div class="fashion-image">👜</div>
-                    <div class="fashion-info">
-                        <h3>Premium Accessories</h3>
-                        <p>Aksesoris berkualitas tinggi untuk melengkapi penampilan Anda</p>
-                        <div class="price">Rp 149.000 - Rp 899.000</div>
-                    </div>
-                </div>
-                <div class="fashion-item" onclick="showProductDetail('Footwear')">
-                    <div class="fashion-image">👟</div>
-                    <div class="fashion-info">
-                        <h3>Trendy Footwear</h3>
-                        <p>Koleksi sepatu trendy dari sneakers hingga formal shoes</p>
-                        <div class="price">Rp 399.000 - Rp 1.199.000</div>
-                    </div>
-                </div>
-                <div class="fashion-item" onclick="showProductDetail('Seasonal')">
-                    <div class="fashion-image">🧥</div>
-                    <div class="fashion-info">
-                        <h3>Seasonal Collection</h3>
-                        <p>Koleksi musiman yang mengikuti tren fashion global terkini</p>
-                        <div class="price">Rp 349.000 - Rp 799.000</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Section -->
-    <section class="interactive-section">
-        <div class="interactive-container">
-            <h2 class="section-title">Personalisasi Gaya Anda</h2>
-            <p>Pilih warna favorit Anda untuk melihat rekomendasi produk yang sesuai</p>
-            <div class="color-picker">
-                <div class="color-option active" style="background: #4ade80;" onclick="changeTheme('#4ade80')"></div>
-                <div class="color-option" style="background: #3b82f6;" onclick="changeTheme('#3b82f6')"></div>
-                <div class="color-option" style="background: #ef4444;" onclick="changeTheme('#ef4444')"></div>
-                <div class="color-option" style="background: #f59e0b;" onclick="changeTheme('#f59e0b')"></div>
-                <div class="color-option" style="background: #8b5cf6;" onclick="changeTheme('#8b5cf6')"></div>
-            </div>
-            <button class="btn-primary" onclick="generateOutfit()">Generate Outfit Saya</button>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="services-container">
-            <h2 class="section-title">Layanan Eksklusif</h2>
-            <div class="services-grid">
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">✨</div>
-                    <h3>Personal Styling</h3>
-                    <p>Konsultasi gaya personal dengan fashion stylist berpengalaman untuk menemukan look yang sempurna sesuai kepribadian dan kebutuhan Anda.</p>
-                </div>
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">🎨</div>
-                    <h3>Custom Design</h3>
-                    <p>Layanan desain khusus untuk menciptakan pakaian unik sesuai keinginan Anda dengan bahan premium dan craftsmanship terbaik.</p>
-                </div>
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">📏</div>
-                    <h3>Perfect Fit Guarantee</h3>
-                    <p>Jaminan ukuran yang pas dengan layanan pengukuran profesional dan alterasi gratis untuk kepuasan maksimal.</p>
-                </div>
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">🚀</div>
-                    <h3>Express Delivery</h3>
-                    <p>Pengiriman kilat dalam 24 jam untuk area Jakarta dan sekitarnya, dengan packaging premium dan tracking real-time.</p>
-                </div>
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">💎</div>
-                    <h3>VIP Membership</h3>
-                    <p>Program membership eksklusif dengan benefit special discount, early access, dan invitation ke fashion event terbatas.</p>
-                </div>
-                <div class="service-card" onclick="animateCard(this)">
-                    <div class="service-icon">🔄</div>
-                    <h3>Easy Return</h3>
-                    <p>Kebijakan return mudah hingga 30 hari dengan proses yang simpel dan customer service yang responsif.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-container">
-            <div class="about-content fade-in">
-                <h2>Tentang NexTeen</h2>
-                <p>NexTeen lahir dari passion untuk menghadirkan fashion berkualitas tinggi yang accessible untuk generasi muda Indonesia. Kami percaya bahwa fashion adalah bentuk ekspresi diri yang powerful.</p>
-                <p>Dengan menggabungkan tren global dan sentuhan lokal, kami menciptakan koleksi yang tidak hanya stylish tetapi juga sustainable dan ethical. Setiap produk dipilih dengan cermat untuk memastikan kualitas terbaik.</p>
-                <p>Bergabunglah dengan komunitas fashion lovers yang terus berkembang dan temukan gaya autentik Anda bersama NexTeen.</p>
-            </div>
-            <div class="stats fade-in">
-                <div class="stat-item" onclick="animateStat(this)">
-                    <div class="stat-number" data-target="50000">0</div>
-                    <div>Happy Customers</div>
-                </div>
-                <div class="stat-item" onclick="animateStat(this)">
-                    <div class="stat-number" data-target="1000">0</div>
-                    <div>Produk Tersedia</div>
-                </div>
-                <div class="stat-item" onclick="animateStat(this)">
-                    <div class="stat-number" data-target="25">0</div>
-                    <div>Kota Terjangkau</div>
-                </div>
-                <div class="stat-item" onclick="animateStat(this)">
-                    <div class="stat-number" data-target="99">0</div>
-                    <div>Satisfaction Rate (%)</div>
+                
+                <div class="content-card">
+                    <h3>👟 Footwear Collection</h3>
+                    <p>Koleksi sepatu trendy untuk berbagai aktivitas. Dari sneakers casual hingga formal shoes, semuanya dibuat dengan material berkualitas tinggi dan design yang timeless.</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="showFootwear()">Lihat Koleksi Sepatu</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <h2 class="section-title">Hubungi Kami</h2>
-            <p>Punya pertanyaan atau butuh bantuan? Tim customer service kami siap membantu Anda 24/7</p>
-            <form class="contact-form fade-in" onsubmit="submitForm(event)">
-                <div class="form-group">
-                    <input type="text" placeholder="Nama Lengkap" required>
-                    <input type="email" placeholder="Email" required>
+    <!-- Services Page -->
+    <section id="services" class="page-section">
+        <div class="services">
+            <div class="services-container">
+                <h2 class="section-title">Layanan Eksklusif NexTeen</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: #cccccc;">Nikmati pengalaman berbelanja fashion yang tak terlupakan dengan layanan premium kami</p>
+                
+                <div class="services-grid">
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">✨</div>
+                        <h3>Personal Styling</h3>
+                        <p>Konsultasi gaya personal dengan fashion stylist berpengalaman untuk menemukan look yang sempurna sesuai kepribadian dan kebutuhan Anda. Termasuk analisis warna, body shape, dan lifestyle assessment.</p>
+                    </div>
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">🎨</div>
+                        <h3>Custom Design</h3>
+                        <p>Layanan desain khusus untuk menciptakan pakaian unik sesuai keinginan Anda dengan bahan premium dan craftsmanship terbaik. Dari sketsa hingga produk jadi dalam 2-4 minggu.</p>
+                    </div>
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">📏</div>
+                        <h3>Perfect Fit Guarantee</h3>
+                        <p>Jaminan ukuran yang pas dengan layanan pengukuran profesional dan alterasi gratis untuk kepuasan maksimal. Termasuk fitting session dan adjustment hingga 3 kali.</p>
+                    </div>
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">🚀</div>
+                        <h3>Express Delivery</h3>
+                        <p>Pengiriman kilat dalam 24 jam untuk area Jakarta dan sekitarnya, dengan packaging premium dan tracking real-time. Same day delivery tersedia untuk area tertentu.</p>
+                    </div>
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">💎</div>
+                        <h3>VIP Membership</h3>
+                        <p>Program membership eksklusif dengan benefit special discount hingga 30%, early access ke koleksi terbaru, dan invitation ke fashion event terbatas serta private shopping session.</p>
+                    </div>
+                    <div class="service-card" onclick="animateCard(this)">
+                        <div class="service-icon">🔄</div>
+                        <h3>Easy Return</h3>
+                        <p>Kebijakan return mudah hingga 30 hari dengan proses yang simpel dan customer service yang responsif. Free return shipping dan instant refund untuk member VIP.</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="tel" placeholder="Nomor WhatsApp">
-                    <input type="text" placeholder="Subjek">
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Design Page -->
+    <section id="request-design" class="page-section">
+        <div class="request-design">
+            <div class="request-container">
+                <h2 class="section-title">Request Custom Design</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: #cccccc;">Wujudkan ide fashion unik Anda bersama tim desainer profesional NexTeen</p>
+                
+                <div class="design-form">
+                    <form id="designRequestForm" onsubmit="submitDesignRequest(event)">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3>📝 Informasi Personal</h3>
+                            <div class="form-group">
+                                <input type="text" placeholder="Nama Lengkap" required>
+                                <input type="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" placeholder="Nomor WhatsApp" required>
+                                <input type="text" placeholder="Instagram Handle (Optional)">
+                            </div>
+                        </div>
+
+                        <!-- Design Type Selection -->
+                        <div class="form-section">
+                            <h3>🎨 Tipe Design Request</h3>
+                            <div class="design-type-selector">
+                                <div class="design-type" onclick="selectDesignType(this, 'custom-design')">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">✏️</div>
+                                    <div>Custom Design</div>
+                                    <small>Buat design dari nol</small>
+                                </div>
+                                <div class="design-type" onclick="selectDesignType(this, 'modify-existing')">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
+                                    <div>Modify Existing</div>
+                                    <small>Modifikasi design yang ada</small>
+                                </div>
+                                <div class="design-type" onclick="selectDesignType(this, 'submit-design')">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📤</div>
+                                    <div>Submit My Design</div>
+                                    <small>Kirim design sendiri</small>
+                                </div>
+                                <div class="design-type" onclick="selectDesignType(this, 'collaboration')">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                                    <div>Collaboration</div>
+                                    <small>Kerjasama design</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Category -->
+                        <div class="form-section">
+                            <h3>👕 Kategori Produk</h3>
+                            <div class="form-group">
+                                <select required>
+                                    <option value="">Pilih Kategori Utama</option>
+                                    <option value="tops">Tops (Kaos, Kemeja, Blouse)</option>
+                                                                  <option value="bottoms">Bottoms (Celana, Rok, Shorts)</option>
+                                    <option value="dresses">Dresses & Jumpsuits</option>
+                                    <option value="outerwear">Outerwear (Jaket, Blazer, Coat)</option>
+                                    <option value="accessories">Accessories (Tas, Topi, Perhiasan)</option>
+                                    <option value="footwear">Footwear (Sepatu, Sandal)</option>
+                                    <option value="underwear">Underwear & Loungewear</option>
+                                    <option value="sportswear">Sportswear & Activewear</option>
+                                </select>
+                                <select required>
+                                    <option value="">Target Gender</option>
+                                    <option value="men">Pria</option>
+                                    <option value="women">Wanita</option>
+                                    <option value="unisex">Unisex</option>
+                                    <option value="kids">Anak-anak</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Design Details -->
+                        <div class="form-section">
+                            <h3>🎯 Detail Design</h3>
+                            <div class="form-group full-width">
+                                <textarea placeholder="Deskripsikan ide design Anda secara detail... (warna, style, inspirasi, dll)" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <select>
+                                    <option value="">Pilih Style Preference</option>
+                                    <option value="minimalist">Minimalist</option>
+                                    <option value="streetwear">Streetwear</option>
+                                    <option value="vintage">Vintage/Retro</option>
+                                    <option value="bohemian">Bohemian</option>
+                                    <option value="elegant">Elegant/Formal</option>
+                                    <option value="edgy">Edgy/Rock</option>
+                                    <option value="romantic">Romantic/Feminine</option>
+                                    <option value="sporty">Sporty/Athletic</option>
+                                </select>
+                                <input type="text" placeholder="Budget Range (Rp)">
+                            </div>
+                        </div>
+
+                        <!-- File Upload Section -->
+                        <div class="form-section">
+                            <h3>📎 Upload Design/Inspirasi</h3>
+                            <div class="file-upload">
+                                <input type="file" id="designFiles" multiple accept="image/*,.pdf,.ai,.psd" onchange="handleFileUpload(this)">
+                                <label for="designFiles" class="file-upload-label">
+                                    <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                                    <div><strong>Klik untuk upload file</strong></div>
+                                    <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                                        Drag & drop atau klik untuk memilih file<br>
+                                        Format: JPG, PNG, PDF, AI, PSD (Max 10MB per file)
+                                    </div>
+                                </label>
+                            </div>
+                            <div id="filePreview" style="margin-top: 1rem;"></div>
+                        </div>
+
+                        <!-- Size & Measurements -->
+                        <div class="form-section">
+                            <h3>📏 Ukuran & Measurements</h3>
+                            <div class="form-group">
+                                <select>
+                                    <option value="">Pilih Size Standard</option>
+                                    <option value="xs">XS</option>
+                                    <option value="s">S</option>
+                                    <option value="m">M</option>
+                                    <option value="l">L</option>
+                                    <option value="xl">XL</option>
+                                    <option value="xxl">XXL</option>
+                                    <option value="custom">Custom Size</option>
+                                </select>
+                                <input type="text" placeholder="Tinggi Badan (cm)">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Lingkar Dada/Bust (cm)">
+                                <input type="text" placeholder="Lingkar Pinggang (cm)">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Lingkar Pinggul (cm)">
+                                <input type="text" placeholder="Measurements Tambahan (Optional)">
+                            </div>
+                        </div>
+
+                        <!-- Timeline & Delivery -->
+                        <div class="form-section">
+                            <h3>⏰ Timeline & Delivery</h3>
+                            <div class="form-group">
+                                <select required>
+                                    <option value="">Kapan Anda butuh produk ini?</option>
+                                    <option value="asap">ASAP (Rush Order +50%)</option>
+                                    <option value="1-2weeks">1-2 Minggu</option>
+                                    <option value="3-4weeks">3-4 Minggu (Standard)</option>
+                                    <option value="1-2months">1-2 Bulan</option>
+                                    <option value="flexible">Flexible Timeline</option>
+                                </select>
+                                <select required>
+                                    <option value="">Metode Delivery</option>
+                                    <option value="pickup">Pickup di Store</option>
+                                    <option value="regular">Regular Delivery</option>
+                                    <option value="express">Express Delivery</option>
+                                    <option value="same-day">Same Day Delivery</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <input type="text" placeholder="Alamat Lengkap untuk Delivery" required>
+                            </div>
+                        </div>
+
+                        <!-- Additional Services -->
+                        <div class="form-section">
+                            <h3>➕ Layanan Tambahan</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cccccc;">
+                                    <input type="checkbox" name="services" value="consultation">
+                                    <span>Design Consultation (Rp 150K)</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cccccc;">
+                                    <input type="checkbox" name="services" value="fitting">
+                                    <span>Fitting Session (Rp 100K)</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cccccc;">
+                                    <input type="checkbox" name="services" value="revision">
+                                    <span>Design Revision (Rp 75K)</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cccccc;">
+                                    <input type="checkbox" name="services" value="packaging">
+                                    <span>Premium Packaging (Rp 50K)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Special Requests -->
+                        <div class="form-section">
+                            <h3>💬 Permintaan Khusus</h3>
+                            <div class="form-group full-width">
+                                <textarea placeholder="Ada permintaan khusus? Ceritakan di sini... (bahan tertentu, detail khusus, dll)" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%; padding: 1.5rem; font-size: 1.2rem; margin-top: 2rem;">
+                            🚀 Submit Design Request
+                        </button>
+                    </form>
                 </div>
-                <textarea placeholder="Pesan Anda..." required></textarea>
-                <button type="submit" class="btn-primary">Kirim Pesan</button>
-            </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page-section">
+        <div class="about">
+            <div class="about-container">
+                <div class="about-content fade-in">
+                    <h2>Tentang NexTeen</h2>
+                    <p>NexTeen lahir dari passion untuk menghadirkan fashion berkualitas tinggi yang accessible untuk generasi muda Indonesia. Kami percaya bahwa fashion adalah bentuk ekspresi diri yang powerful dan dapat mengubah cara seseorang memandang dunia.</p>
+                    <p>Dengan menggabungkan tren global dan sentuhan lokal yang autentik, kami menciptakan koleksi yang tidak hanya stylish tetapi juga sustainable dan ethical. Setiap produk dipilih dengan cermat untuk memastikan kualitas terbaik dan dampak positif bagi lingkungan.</p>
+                    <p>Bergabunglah dengan komunitas fashion lovers yang terus berkembang dan temukan gaya autentik Anda bersama NexTeen. Mari bersama-sama menciptakan masa depan fashion yang lebih baik.</p>
+                </div>
+                <div class="stats fade-in">
+                    <div class="stat-item" onclick="animateStat(this)">
+                        <div class="stat-number" data-target="50000">0</div>
+                        <div>Happy Customers</div>
+                    </div>
+                    <div class="stat-item" onclick="animateStat(this)">
+                        <div class="stat-number" data-target="1000">0</div>
+                        <div>Produk Tersedia</div>
+                    </div>
+                    <div class="stat-item" onclick="animateStat(this)">
+                        <div class="stat-number" data-target="25">0</div>
+                        <div>Kota Terjangkau</div>
+                    </div>
+                    <div class="stat-item" onclick="animateStat(this)">
+                        <div class="stat-number" data-target="99">0</div>
+                        <div>Satisfaction Rate (%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page-section">
+        <div class="contact">
+            <div class="contact-container">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <p>Punya pertanyaan atau butuh bantuan? Tim customer service kami siap membantu Anda 24/7</p>
+                <form class="contact-form fade-in" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nama Lengkap" required>
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Nomor WhatsApp">
+                        <input type="text" placeholder="Subjek">
+                    </div>
+                    <textarea placeholder="Pesan Anda..." required></textarea>
+                    <button type="submit" class="btn-primary">Kirim Pesan</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -984,26 +1668,26 @@
                 </div>
                 <div class="footer-section">
                     <h3>Kategori Fashion</h3>
-                    <a href="#">Streetwear</a>
-                    <a href="#">Formal Wear</a>
-                    <a href="#">Casual Collection</a>
-                    <a href="#">Accessories</a>
-                    <a href="#">Footwear</a>
+                    <a href="#" onclick="showPage('fashion')">Streetwear</a>
+                    <a href="#" onclick="showPage('fashion')">Formal Wear</a>
+                    <a href="#" onclick="showPage('fashion')">Casual Collection</a>
+                    <a href="#" onclick="showPage('fashion')">Accessories</a>
+                    <a href="#" onclick="showPage('fashion')">Footwear</a>
                 </div>
                 <div class="footer-section">
                     <h3>Customer Care</h3>
-                    <a href="#">Size Guide</a>
-                    <a href="#">Shipping Info</a>
-                    <a href="#">Return Policy</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Live Chat</a>
+                    <a href="#" onclick="showSizeGuide()">Size Guide</a>
+                    <a href="#" onclick="showShippingInfo()">Shipping Info</a>
+                    <a href="#" onclick="showReturnPolicy()">Return Policy</a>
+                    <a href="#" onclick="showFAQ()">FAQ</a>
+                    <a href="#" onclick="showLiveChat()">Live Chat</a>
                 </div>
                 <div class="footer-section">
                     <h3>Kontak</h3>
                     <a href="mailto:hello@nexteen.com">hello@nexteen.com</a>
                     <a href="tel:+6281234567890">+62 812-3456-7890</a>
-                    <a href="#">Jakarta, Indonesia</a>
-                    <a href="#">Follow @nexteen_id</a>
+                    <a href="#" onclick="showStoreLocator()">Jakarta, Indonesia</a>
+                    <a href="#" onclick="showSocialMedia()">Follow @nexteen_id</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1013,15 +1697,175 @@
     </footer>
 
     <script>
-        // Loading Screen
+        // Global Variables
+        let currentPage = 'home';
+        let selectedDesignType = '';
+        let uploadedFiles = [];
+
+        // Enhanced Loading Screen
         window.addEventListener('load', function() {
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loadingScreen').style.display = 'none';
-                }, 500);
-            }, 2000);
+                }, 800);
+            }, 3000);
         });
+
+        // Page Navigation System
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            currentPage = pageId;
+            
+            // Update URL without reload
+            history.pushState({page: pageId}, '', `#${pageId}`);
+            
+            // Show notification
+            showNotification(`📄 Navigasi ke halaman ${pageId.charAt(0).toUpperCase() + pageId.slice(1)}`);
+            
+            // Add page transition effect
+            document.getElementById(pageId).style.animation = 'fadeInUp 0.5s ease-out';
+        }
+
+        // Notification System
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Design Type Selection
+        function selectDesignType(element, type) {
+            // Remove active class from all design types
+            document.querySelectorAll('.design-type').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add active class to selected type
+            element.classList.add('selected');
+            selectedDesignType = type;
+            
+            // Show notification
+            showNotification(`🎨 Design type "${type}" dipilih!`);
+            
+            // Add animation effect
+            element.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1.05)';
+            }, 200);
+        }
+
+        // File Upload Handler
+        function handleFileUpload(input) {
+            const files = Array.from(input.files);
+            const preview = document.getElementById('filePreview');
+            preview.innerHTML = '';
+            
+            files.forEach((file, index) => {
+                if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                    showNotification(`❌ File ${file.name} terlalu besar (max 10MB)`);
+                    return;
+                }
+                
+                uploadedFiles.push(file);
+                
+                const fileItem = document.createElement('div');
+                fileItem.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    padding: 0.5rem;
+                    background: rgba(74, 222, 128, 0.1);
+                    border-radius: 5px;
+                    margin-bottom: 0.5rem;
+                `;
+                
+                const fileIcon = file.type.startsWith('image/') ? '🖼️' : '📄';
+                fileItem.innerHTML = `
+                    <span>${fileIcon}</span>
+                    <span style="flex: 1; color: #4ade80;">${file.name}</span>
+                    <span style="color: #cccccc; font-size: 0.8rem;">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <button type="button" onclick="removeFile(${index})" style="background: #ef4444; color: white; border: none; border-radius: 3px; padding: 0.2rem 0.5rem; cursor: pointer;">✕</button>
+                `;
+                
+                preview.appendChild(fileItem);
+            });
+            
+            showNotification(`📎 ${files.length} file berhasil diupload!`);
+        }
+
+        // Remove File
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            showNotification(`🗑️ File berhasil dihapus`);
+            
+            // Refresh file preview
+            const preview = document.getElementById('filePreview');
+            preview.innerHTML = '';
+            uploadedFiles.forEach((file, newIndex) => {
+                // Re-render remaining files
+                const fileItem = document.createElement('div');
+                fileItem.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    padding: 0.5rem;
+                    background: rgba(74, 222, 128, 0.1);
+                    border-radius: 5px;
+                    margin-bottom: 0.5rem;
+                `;
+                
+                const fileIcon = file.type.startsWith('image/') ? '🖼️' : '📄';
+                fileItem.innerHTML = `
+                    <span>${fileIcon}</span>
+                    <span style="flex: 1; color: #4ade80;">${file.name}</span>
+                    <span style="color: #cccccc; font-size: 0.8rem;">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <button type="button" onclick="removeFile(${newIndex})" style="background: #ef4444; color: white; border: none; border-radius: 3px; padding: 0.2rem 0.5rem; cursor: pointer;">✕</button>
+                `;
+                
+                preview.appendChild(fileItem);
+            });
+        }
+
+        // Submit Design Request
+        function submitDesignRequest(event) {
+            event.preventDefault();
+            
+            if (!selectedDesignType) {
+                showNotification('❌ Silakan pilih tipe design request terlebih dahulu!');
+                return;
+            }
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ Mengirim Request...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                showNotification('✅ Design request berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.');
+                event.target.reset();
+                uploadedFiles = [];
+                selectedDesignType = '';
+                document.getElementById('filePreview').innerHTML = '';
+                document.querySelectorAll('.design-type').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        }
 
         // Particle System
         function createParticles() {
@@ -1079,17 +1923,16 @@
 
         // Interactive Functions
         function showSpecialOffer() {
-            alert('🎉 Special Offer! Dapatkan diskon 30% untuk pembelian pertama Anda! Gunakan kode: NEXTEEN30');
+            showNotification('🎉 Special Offer! Dapatkan diskon 30% untuk pembelian pertama Anda! Gunakan kode: NEXTEEN30');
         }
 
         function exploreCollection() {
-            document.getElementById('fashion').scrollIntoView({ behavior: 'smooth' });
-            // Add sparkle effect
+            showPage('fashion');
             createSparkles();
         }
 
         function watchLookbook() {
-            alert('📸 Lookbook NexTeen akan segera hadir! Stay tuned untuk inspirasi fashion terbaru.');
+            showNotification('📸 Lookbook NexTeen akan segera hadir! Stay tuned untuk inspirasi fashion terbaru.');
         }
 
         function showProductDetail(productName) {
@@ -1102,28 +1945,23 @@
                 'Seasonal': 'Koleksi musiman yang mengikuti tren fashion global. Limited edition dengan design eksklusif.'
             };
             
-            alert(`✨ ${productName}\n\n${details[productName]}\n\n💫 Tertarik? Hubungi customer service kami untuk info lebih lanjut!`);
+            showNotification(`✨ ${productName}: ${details[productName]}`);
         }
 
         function changeTheme(color) {
-            // Remove active class from all color options
             document.querySelectorAll('.color-option').forEach(option => {
                 option.classList.remove('active');
             });
             
-            // Add active class to clicked option
             event.target.classList.add('active');
-            
-            // Change CSS custom properties
             document.documentElement.style.setProperty('--accent-color', color);
             
-            // Update all elements with the accent color
             const elements = document.querySelectorAll('.service-icon, .section-title, .stat-number, .logo, .nav-menu a:hover');
             elements.forEach(el => {
                 el.style.color = color;
             });
             
-            alert(`🎨 Tema berhasil diubah! Warna ${color} akan menjadi aksen utama untuk rekomendasi produk Anda.`);
+            showNotification(`🎨 Tema berhasil diubah! Warna ${color} akan menjadi aksen utama untuk rekomendasi produk Anda.`);
         }
 
         function generateOutfit() {
@@ -1136,7 +1974,7 @@
             ];
             
             const randomOutfit = outfits[Math.floor(Math.random() * outfits.length)];
-            alert(`✨ Outfit Recommendation untuk Anda:\n\n${randomOutfit}\n\n💡 Cocok untuk gaya yang Anda pilih! Mau lihat produk serupa?`);
+            showNotification(`✨ Outfit Recommendation: ${randomOutfit}`);
         }
 
         function animateCard(card) {
@@ -1168,15 +2006,13 @@
         function submitForm(event) {
             event.preventDefault();
             
-            // Show loading animation
             const submitBtn = event.target.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Mengirim...';
             submitBtn.disabled = true;
             
-            // Simulate form submission
             setTimeout(() => {
-                alert('✅ Pesan berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.');
+                showNotification('✅ Pesan berhasil dikirim! Tim kami akan menghubungi Anda dalam 1x24 jam.');
                 event.target.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -1205,18 +2041,83 @@
             }
         }
 
+        // Enhanced Interactive Functions for Dropdown Links
+        function showNewArrivals() { showNotification('🆕 Menampilkan koleksi terbaru yang baru saja tiba!'); }
+        function showTrending() { showNotification('🔥 Ini dia produk yang sedang trending sekarang!'); }
+        function showFeatured() { showNotification('⭐ Produk pilihan editor khusus untuk Anda!'); }
+        function showBestseller() { showNotification('👑 Produk best seller yang paling disukai customer!'); }
+        function showLimitedEdition() { showNotification('💎 Koleksi limited edition - Stock terbatas!'); }
+        function showSustainable() { showNotification('🌱 Fashion berkelanjutan untuk masa depan yang lebih baik!'); }
+        function showCollaborations() { showNotification('🤝 Kolaborasi eksklusif dengan brand ternama!'); }
+        function showExclusive() { showNotification('🔒 Koleksi eksklusif hanya untuk member VIP!'); }
+
+        function showMenCasual() { showNotification('👕 Koleksi casual pria untuk gaya santai yang tetap keren!'); }
+        function showMenFormal() { showNotification('🤵 Busana formal pria untuk tampil profesional dan elegan!'); }
+        function showMenStreet() { showNotification('🧢 Streetwear pria yang edgy dan mengikuti tren!'); }
+        function showMenSports() { showNotification('🏃 Sportswear pria untuk aktivitas olahraga yang nyaman!'); }
+        function showWomenDresses() { showNotification('👗 Koleksi dress wanita untuk berbagai acara!'); }
+        function showWomenTops() { showNotification('👚 Tops & blouse wanita yang feminin dan stylish!'); }
+        function showWomenBottoms() { showNotification('👖 Bottoms wanita dari jeans hingga rok yang trendy!'); }
+        function showWomenOuterwear() { showNotification('🧥 Outerwear wanita untuk tampil chic di segala cuaca!'); }
+
+        function showPersonalStyling() { showNotification('👩‍🎨 Konsultasi dengan personal stylist profesional kami!'); }
+        function showCustomDesign() { showNotification('🎨 Wujudkan design impian Anda bersama tim kreatif kami!'); }
+        function showSizeConsultation() { showNotification('📏 Dapatkan ukuran yang pas dengan konsultasi ahli!'); }
+        function showColorAnalysis() { showNotification('🌈 Temukan warna yang paling cocok untuk Anda!'); }
+        function showExpressDelivery() { showNotification('⚡ Pengiriman kilat dalam 24 jam!'); }
+        function showVIPService() { showNotification('💎 Bergabung dengan program VIP untuk benefit eksklusif!'); }
+        function showAlterationService() { showNotification('✂️ Layanan alterasi untuk fit yang sempurna!'); }
+        function showWardrobe() { showNotification('👗 Konsultasi wardrobe untuk gaya yang lebih baik!'); }
+
+        function showDesignSubmission() { showNotification('📤 Upload design Anda dan wujudkan menjadi kenyataan!'); }
+        function showDesignConsultation() { showNotification('💬 Konsultasi design dengan tim kreatif profesional!'); }
+        function showDesignRevision() { showNotification('🔄 Proses revisi design hingga sesuai keinginan Anda!'); }
+        function showPrototype() { showNotification('🧪 Pengembangan prototype sebelum produksi massal!'); }
+        function showDesignerPartnership() { showNotification('👥 Program partnership untuk desainer independen!'); }
+        function showBrandCollaboration() { showNotification('🏢 Kolaborasi dengan brand untuk project khusus!'); }
+        function showInfluencerProgram() { showNotification('📱 Program khusus untuk influencer dan content creator!'); }
+        function showStudentProgram() { showNotification('🎓 Program beasiswa untuk mahasiswa desain fashion!'); }
+
+        function showOurStory() { showNotification('🏁 Perjalanan NexTeen dari startup hingga brand ternama!'); }
+        function showVisionMission() { showNotification('🎯 Visi misi kami untuk masa depan fashion Indonesia!'); }
+        function showValues() { showNotification('💎 Nilai-nilai yang kami pegang teguh dalam berbisnis!'); }
+        function showAchievements() { showNotification('🏆 Penghargaan dan pencapaian yang telah kami raih!'); }
+        function showTeam() { showNotification('👨‍💼 Kenali tim kreatif di balik kesuksesan NexTeen!'); }
+        function showSustainability() { showNotification('🌱 Komitmen kami untuk fashion yang berkelanjutan!'); }
+        function showCommunity() { showNotification('🤝 Dampak positif NexTeen untuk komunitas lokal!'); }
+        function showCareers() { showNotification('💼 Bergabunglah dengan tim NexTeen yang dinamis!'); }
+
+        function showLiveChat() { showNotification('💬 Live chat tersedia 24/7 untuk bantuan instant!'); }
+        function showWhatsApp() { showNotification('📱 Hubungi kami via WhatsApp untuk respon cepat!'); }
+        function showEmailSupport() { showNotification('📧 Email support untuk pertanyaan detail!'); }
+        function showPhoneSupport() { showNotification('☎️ Layanan telepon untuk konsultasi langsung!'); }
+        function showStoreLocator() { showNotification('📍 Temukan store NexTeen terdekat dari lokasi Anda!'); }
+        function showFlagshipStores() { showNotification('🏢 Kunjungi flagship store kami untuk pengalaman premium!'); }
+        function showStoreEvents() { showNotification('🎉 Event menarik di store-store NexTeen!'); }
+        function showAppointment() { showNotification('📅 Book appointment untuk personal shopping session!'); }
+
+        function showMenFashion() { showPage('fashion'); showNotification('👔 Menampilkan koleksi fashion pria lengkap!'); }
+        function showWomenFashion() { showPage('fashion'); showNotification('👗 Menampilkan koleksi fashion wanita terbaru!'); }
+        function showAccessories() { showPage('fashion'); showNotification('👜 Koleksi aksesoris premium untuk melengkapi gaya Anda!'); }
+        function showFootwear() { showPage('fashion'); showNotification('👟 Koleksi sepatu trendy untuk berbagai aktivitas!'); }
+
+        function showSizeGuide() { showNotification('📏 Panduan ukuran lengkap untuk semua produk!'); }
+        function showShippingInfo() { showNotification('🚚 Informasi pengiriman dan estimasi waktu tiba!'); }
+        function showReturnPolicy() { showNotification('🔄 Kebijakan return yang mudah dan customer-friendly!'); }
+        function showFAQ() { showNotification('❓ Frequently Asked Questions dan jawabannya!'); }
+        function showSocialMedia() { showNotification('📱 Follow media sosial kami untuk update terbaru!'); }
+
         // Header background on scroll
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(13, 40, 24, 0.98)';
-                header.style.transform = 'translateY(0)';
+                header.style.background = 'rgba(15, 36, 25, 0.98)';
             } else {
-                header.style.background = 'rgba(13, 40, 24, 0.95)';
+                header.style.background = 'rgba(15, 36, 25, 0.95)';
             }
         });
 
-        // Initialize particles when page loads
+        // Initialize particles and effects
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
@@ -1229,6 +2130,13 @@
                 item.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0) scale(1) rotateY(0deg)';
                 });
+            });
+
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function(event) {
+                if (event.state && event.state.page) {
+                    showPage(event.state.page);
+                }
             });
         });
 
@@ -1249,11 +2157,88 @@
 
         // Initialize typing effect when hero is visible
         const heroTitle = document.querySelector('.hero h1');
-        const heroText = heroTitle.textContent;
-        
-        setTimeout(() => {
-            typeWriter(heroTitle, heroText, 50);
-        }, 2500);
+        if (heroTitle) {
+            const heroText = heroTitle.textContent;
+            
+            setTimeout(() => {
+                typeWriter(heroTitle, heroText, 50);
+            }, 3500);
+        }
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch(event.key) {
+                    case '1':
+                        event.preventDefault();
+                        showPage('home');
+                        break;
+                    case '2':
+                        event.preventDefault();
+                        showPage('fashion');
+                        break;
+                    case '3':
+                        event.preventDefault();
+                        showPage('services');
+                        break;
+                    case '4':
+                        event.preventDefault();
+                        showPage('request-design');
+                        break;
+                    case '5':
+                        event.preventDefault();
+                        showPage('about');
+                        break;
+                    case '6':
+                        event.preventDefault();
+                        showPage('contact');
+                        break;
+                }
+            }
+        });
+
+        // Add mouse trail effect
+        let mouseTrail = [];
+        document.addEventListener('mousemove', function(e) {
+            mouseTrail.push({x: e.clientX, y: e.clientY, time: Date.now()});
+            
+            if (mouseTrail.length > 10) {
+                mouseTrail.shift();
+            }
+            
+            // Create trail effect occasionally
+            if (Math.random() < 0.1) {
+                const trail = document.createElement('div');
+                trail.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: #4ade80;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    animation: fadeOut 1s ease-out forwards;
+                `;
+                
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 1000);
+            }
+        });
+
+        // Add CSS for fadeOut animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { opacity: 0.7; transform: scale(1); }
+                100% { opacity: 0; transform: scale(0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
